@@ -194,7 +194,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     <div class="big">
       <div class="cell solved" id="cA"><div class="k" id="kA">Diameter</div><div class="v"><span id="vA">&mdash;</span><span class="u" id="uA">in</span></div></div>
       <div class="cell solved" id="cB"><div class="k" id="kB">CFM</div><div class="v"><span id="vB">&mdash;</span><span class="u" id="uB">cfm</span></div></div>
-      <div class="cell" id="cC"><div class="k">Velocity</div><div class="v"><span id="vC">&mdash;</span><span class="u">fpm</span></div></div>
+      <div class="cell" id="cC"><div class="k">Velocity (FPM)</div><div class="v"><span id="vC">&mdash;</span><span class="u">FPM</span></div></div>
       <div class="cell" id="cD"><div class="k">Friction</div><div class="v"><span id="vD">&mdash;</span><span class="u">/100ft</span></div></div>
     </div>
     <p class="hint-h" id="hint">Orange is what the tool worked out. White is what you set.</p>
@@ -232,7 +232,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       <label class="lab">Common settings</label>
       <div class="chips" id="velChips"></div>
       <label class="lab" for="iVel">Or type it</label>
-      <div class="field"><input id="iVel" type="number" inputmode="numeric" step="50" size="1" value="900"><span class="unit">fpm</span></div>
+      <div class="field"><input id="iVel" type="number" inputmode="numeric" step="50" size="1" value="900"><span class="unit">FPM</span></div>
     </div>
   </section>
 
@@ -256,6 +256,17 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       </div>
     </div>
     <p class="err" id="err" hidden></p>
+  </section>
+
+  <section class="panel">
+    <h2>Static pressure</h2>
+    <p class="sub">What this run costs you in static. Friction rate above &times; your length.</p>
+    <label class="lab" for="iLen">Duct run length</label>
+    <div class="field"><input id="iLen" type="number" inputmode="decimal" step="5" size="1" placeholder="50"><span class="unit">ft</span></div>
+    <label class="lab" for="iEq">Fittings, equivalent length</label>
+    <div class="field"><input id="iEq" type="number" inputmode="decimal" step="5" size="1" placeholder="0"><span class="unit">ft &middot; optional</span></div>
+    <div class="out"><div class="r" id="spOut">&mdash;</div><div class="s" id="spNote"></div></div>
+    <p class="tip">Straight-duct friction only unless you add equivalent length for the fittings. Rule of thumb: each radius ell is worth roughly 10&ndash;15 ft of straight duct; look up your fittings if it's close.</p>
   </section>
 
   <section class="panel">
@@ -458,7 +469,6 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     return n.toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d});
   }
   function f3(n){ return n.toLocaleString("en-US",{minimumFractionDigits:3,maximumFractionDigits:3}); }
-  function frNow(){ return state.mode === "fr" ? (num("iFr") || 0.08) : 0.08; }
 
   /* ---------- the calc ---------- */
   function calc(){
@@ -513,6 +523,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       $("err").textContent = r.err;
       ["vA","vB","vC","vD"].forEach(function(i){ $(i).innerHTML = "&mdash;"; });
       $("cvOut").innerHTML = "&mdash;"; $("cvNote").textContent = ""; $("cvSrc").innerHTML = "";
+      $("spOut").innerHTML = "&mdash;"; $("spNote").textContent = "";
       return;
     }
 
@@ -526,13 +537,30 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     var solveDia = state.known === "cfm";
     $("cA").className = "cell" + (solveDia || sq ? " solved" : "");
     $("cB").className = "cell" + (solveDia ? "" : " solved");
-    $("cC").className = "cell" + (state.mode === "vel" && !sq ? "" : " solved");
+    $("cC").className = "cell" + (state.mode === "vel" ? "" : " solved");
     $("cD").className = "cell" + (state.mode === "fr" ? "" : " solved");
 
     $("hint").textContent = "Orange is what the tool worked out. White is what you set.";
     $("flexWarn").hidden = state.type !== "flex";
     typeTip(r);
     convert(r);
+    staticP(r);
+  }
+
+  /* ---------- static pressure over the run ---------- */
+  function staticP(r){
+    var L = num("iLen");
+    if(L === null){
+      $("spOut").innerHTML = "&mdash;";
+      $("spNote").textContent = "Type your run length to see the total.";
+      return;
+    }
+    var eq = parseFloat($("iEq").value);
+    if(!isFinite(eq) || eq < 0) eq = 0;
+    var total = L + eq;
+    $("spOut").innerHTML = f3(r.fr*total/100) + " in wg";
+    $("spNote").innerHTML = f3(r.fr) + " /100 ft × " + f0(total) + " ft" +
+      (eq > 0 ? " (" + f0(L) + " duct + " + f0(eq) + " fittings)" : "");
   }
 
   /* ---------- what the material costs you ---------- */
@@ -560,7 +588,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
 
   /* ---------- one converter, pointed whichever way you need ---------- */
   function convert(r){
-    var fr = frNow();
+    var fr = r.fr;
     if(r.shape === "square"){
       $("cvTitle").textContent = "Square \u2192 round";
       $("cvSub").textContent = "Cheaper to run spiral. Here's the size that matches.";
@@ -568,7 +596,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       $("cvIn").hidden = true;
       $("cvOut").innerHTML = f1(r.d) + "&Prime; round";
       $("cvNote").innerHTML = "same air, same friction &middot; " + f0(vel(r.q,r.d)) +
-        " fpm in the pipe vs " + f0(r.v) + " in the square &middot; " +
+        " FPM in the pipe vs " + f0(r.v) + " in the square &middot; " +
         f1(Math.max(r.w,r.h)/Math.min(r.w,r.h)) + ":1";
       return;
     }
@@ -583,7 +611,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     var vSq = r.q/((o*s)/144);
     $("cvOut").innerHTML = f1(o) + " &times; " + f1(s) + "&Prime;";
     $("cvNote").innerHTML = "same as " + f1(r.d) + "&Prime; round &middot; same " + f0(r.q) + " cfm at " + f3(fr) +
-      " &middot; " + f0(vSq) + " fpm vs " + f0(r.v) + " in the pipe &middot; " +
+      " &middot; " + f0(vSq) + " FPM vs " + f0(r.v) + " in the pipe &middot; " +
       f1(Math.max(o,s)/Math.min(o,s)) + ":1";
   }
 
@@ -630,7 +658,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     });
   }
 
-  ["iFr","iVel","iCfm","iDia","iW","iH","iSide"].forEach(function(id){
+  ["iFr","iVel","iCfm","iDia","iW","iH","iSide","iLen","iEq"].forEach(function(id){
     $(id).addEventListener("input", function(){ if(id === "iVel") syncChips(); paint(); });
   });
 
@@ -670,7 +698,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     $("tutStep").textContent = "Step " + tutStep + " of " + tutMax;
     $("tutText").innerHTML = tutTextFor(tutStep, tutR);
     $("tutPrev").disabled = tutStep <= 1;
-    $("tutNext").textContent = tutStep >= 6 ? "Done" : "Next ›";
+    $("tutNext").textContent = tutStep >= tutMax ? "Done" : "Next ›";
     owlDraw(tutR, tutStep, $("tutSvg"));
   }
   var ANGLES = [22.5, 30, 45, 60, 90];
@@ -705,7 +733,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
   }
   function bendDim(){
     if(off.fit === "twoS" || off.fit === "owl") return num("oBend");
-    if(off.fit === "wye" || off.fit === "single") return num("oTap");
+    if(off.fit === "wye") return num("oTap");
     return num("oD");
   }
   function syncFitLen(){
