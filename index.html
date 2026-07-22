@@ -128,6 +128,10 @@ body{
   font-family:var(--mono);font-size:24px;font-weight:600;color:var(--ink)}
 .field input::placeholder{color:#9AA7B1;font-weight:400}
 .field input:focus{outline:0}
+.field select{flex:1 1 0;width:0;min-width:0;min-height:60px;border:0;background:transparent;padding:0 8px 0 12px;
+  font-family:var(--mono);font-size:23px;font-weight:600;color:var(--ink);cursor:pointer}
+.field select:focus{outline:0}
+.ellsel{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .field:focus-within{box-shadow:0 0 0 3px rgba(255,106,19,.4)}
 .field .unit{display:flex;align-items:center;flex:0 0 auto;padding:0 12px;background:#E7EBEE;border-left:2px solid var(--rule);
   font-family:var(--cond);font-size:15px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap}
@@ -168,6 +172,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
   .head{padding:11px 14px;margin-bottom:12px}
   .big .cell{padding:9px 11px}
   .field input{min-height:54px;font-size:22px}
+  .field select{min-height:54px;font-size:21px}
   .field .unit{padding:0 10px}
   .seg button{min-height:52px}
   .chips button{min-height:50px}
@@ -208,6 +213,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
   .panel > h2 + p.sub{margin-bottom:8px}
   .lab{margin:8px 0 5px;font-size:14px}
   .field input{min-height:44px;font-size:21px}
+  .field select{min-height:44px;font-size:20px}
   .seg button{min-height:42px}
   .chips{margin-bottom:7px;gap:6px}
   .chips button{min-height:42px}
@@ -326,13 +332,15 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
 
   <section class="panel">
     <h2>Static pressure</h2>
-    <p class="sub">What this run costs you in static. Friction rate above &times; your length.</p>
+    <p class="sub">What this run costs you in static &mdash; the duct friction plus any elbows in the run.</p>
     <label class="lab" for="iLen">Duct run length</label>
     <div class="field"><input id="iLen" type="number" inputmode="decimal" step="5" size="1" placeholder="50"><span class="unit">ft</span></div>
-    <label class="lab" for="iEq">Fittings, equivalent length</label>
-    <div class="field"><input id="iEq" type="number" inputmode="decimal" step="5" size="1" placeholder="0"><span class="unit">ft &middot; optional</span></div>
+    <label class="lab">Elbows in the run</label>
+    <div class="ellsel">
+      <div class="field"><select id="iEll90" aria-label="Number of 90 degree elbows"></select><span class="unit">&times; 90&deg;</span></div>
+      <div class="field"><select id="iEll45" aria-label="Number of 45 degree elbows"></select><span class="unit">&times; 45&deg;</span></div>
+    </div>
     <div class="out"><div class="r" id="spOut">&mdash;</div><div class="s" id="spNote"></div></div>
-    <p class="tip">Straight-duct friction only unless you add equivalent length for the fittings. Rule of thumb: each radius ell is worth roughly 10&ndash;15 ft of straight duct; look up your fittings if it's close.</p>
   </section>
 
   <section class="panel">
@@ -614,6 +622,8 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
   }
 
   /* ---------- static pressure over the run ---------- */
+  // Smooth radius ell loss coefficients; each elbow drops C * velocity pressure.
+  var C_ELL = { e90:0.22, e45:0.11 };
   function staticP(r){
     var L = num("iLen");
     if(L === null){
@@ -621,12 +631,22 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       $("spNote").textContent = "Type your run length to see the total.";
       return;
     }
-    var eq = parseFloat($("iEq").value);
-    if(!isFinite(eq) || eq < 0) eq = 0;
-    var total = L + eq;
-    $("spOut").innerHTML = f3(r.fr*total/100) + " in wg";
-    $("spNote").innerHTML = f3(r.fr) + " /100 ft × " + f0(total) + " ft" +
-      (eq > 0 ? " (" + f0(L) + " duct + " + f0(eq) + " fittings)" : "");
+    var n90 = parseInt($("iEll90").value,10) || 0;
+    var n45 = parseInt($("iEll45").value,10) || 0;
+    var ductLoss = r.fr*L/100;
+    var pv = Math.pow(r.v/4005, 2);                 // velocity pressure, in wg
+    var ellLoss = (n90*C_ELL.e90 + n45*C_ELL.e45)*pv;
+    var total = ductLoss + ellLoss;
+    $("spOut").innerHTML = f3(total) + " in wg";
+    var note = f3(ductLoss) + " over " + f0(L) + " ft of duct";
+    if(n90 || n45){
+      var bits = [];
+      if(n90) bits.push(n90 + "×90°");
+      if(n45) bits.push(n45 + "×45°");
+      var eqLen = ellLoss/(r.fr/100);               // same drop as this much straight duct
+      note += " + " + f3(ellLoss) + " for " + bits.join(" & ") + " (≈ " + f0(eqLen) + " ft of duct)";
+    }
+    $("spNote").innerHTML = note;
   }
 
   /* ---------- what the material costs you ---------- */
@@ -724,7 +744,14 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     });
   }
 
-  ["iFr","iVel","iCfm","iDia","iW","iH","iSide","iLen","iEq"].forEach(function(id){
+  // fill the elbow dropdowns 0..12
+  ["iEll90","iEll45"].forEach(function(id){
+    var s = $(id), html = "";
+    for(var n=0;n<=12;n++) html += '<option value="' + n + '">' + n + '</option>';
+    s.innerHTML = html;
+  });
+
+  ["iFr","iVel","iCfm","iDia","iW","iH","iSide","iLen","iEll90","iEll45"].forEach(function(id){
     $(id).addEventListener("input", function(){ if(id === "iVel") syncChips(); paint(); });
   });
 
