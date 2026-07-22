@@ -372,6 +372,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       <button type="button" data-v="twoR" data-shape="round" aria-pressed="true"><span class="fT">Two elbows</span><span class="fS">S-offset. Two radius ells with a straight between.</span></button>
       <button type="button" data-v="single" data-shape="round" aria-pressed="false"><span class="fT">Single elbow</span><span class="fS">One end already at the angle &mdash; a tap, a collar, a unit connection.</span></button>
       <button type="button" data-v="wye" data-shape="round" aria-pressed="false"><span class="fT">Wye branch</span><span class="fS">Tap off the main, ell back to parallel.</span></button>
+      <button type="button" data-v="rtap" data-shape="round" aria-pressed="false"><span class="fT">Rolled tap</span><span class="fS">Tap off a round main with an ell &mdash; cut joint, ell, offset length, arc.</span></button>
       <button type="button" data-v="twoS" data-shape="square" aria-pressed="false"><span class="fT">Two elbows</span><span class="fS">S-offset. Radius-throat ells &mdash; throat 0 = mitered.</span></button>
       <button type="button" data-v="owl" data-shape="square" aria-pressed="false"><span class="fT">OWL &middot; cut &amp; flip</span><span class="fS">Field offset out of straight duct. Two cuts, flip the middle.</span></button>
     </div>
@@ -391,10 +392,12 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       <label class="lab" for="oTap">Tap size</label>
       <div class="field"><input id="oTap" type="number" inputmode="decimal" size="1"><span class="unit">in round</span></div>
       <label class="lab" for="oTapLen">Tap length</label>
-      <div class="field"><input id="oTapLen" type="number" inputmode="decimal" size="1"><span class="unit">in &middot; standard 6</span></div>
+      <div class="field"><input id="oTapLen" type="number" inputmode="decimal" size="1"><span class="unit">in</span></div>
+      <div id="fitLenRow">
       <label class="lab" for="oFitLen">Fitting length</label>
       <div class="field"><input id="oFitLen" type="number" inputmode="decimal" size="1"><span class="unit">in on the main</span></div>
       <p class="tip" id="fitLenTip"></p>
+      </div>
     </div>
   </section>
 
@@ -854,7 +857,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
   }
   function bendDim(){
     if(off.fit === "twoS" || off.fit === "owl") return num("oBend");
-    if(off.fit === "wye") return num("oTap");
+    if(off.fit === "wye" || off.fit === "rtap") return num("oTap");
     return num("oD");
   }
   function syncFitLen(){
@@ -937,6 +940,27 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
                angDeg:s.th*180/Math.PI, lenMode:lenMode, stock:s.stock, endLen:s.endLen,
                tdc:(off.endConn === "tdc"), endAllow:e,
                freeStraight:freeStraight, needExtra:needExtra, skew:skew };
+    }
+
+    if(off.fit === "rtap"){
+      var rMain = num("oD");   if(rMain === null) return { err:"Enter the main diameter." };
+      var rTap  = num("oTap"); if(rTap  === null) return { err:"Enter the tap diameter." };
+      var rTapL = num("oTapLen"); if(rTapL === null) rTapL = 0;
+      var rThr  = parseFloat($("oThroat").value);
+      if(!isFinite(rThr) || rThr < 0) return { err:"Enter a throat radius." };
+      var rAng  = num("oAng");
+      if(rAng === null || rAng >= 180) return { err:"Angle has to be between 0 and 180." };
+      var rO    = num("oOff"); if(rO === null) return { err:"Enter the offset above zero." };
+      var rth = rAng*Math.PI/180, Rell = rThr + rTap/2, Rm = rMain/2;
+      var rTravel = rO/Math.sin(rth), rTangent = Rell*Math.tan(rth/2);
+      var rRun = Math.abs(rAng - 90) < 1e-9 ? 0 : rO/Math.tan(rth);
+      return { rtap:true, mainD:rMain, D:rTap, tapLen:rTapL, throat:rThr, R:Rell, Rmain:Rm,
+               angDeg:rAng, th:rth, O:rO, travel:rTravel, tan:rTangent, run:rRun,
+               cutJoint: rTravel - Rm - rTapL - rTangent,
+               ellCL:   rTangent,
+               offLen:  rRun + rTangent,
+               arcMain: Rm*rth,
+               ellArc:  Rell*rth };
     }
 
     var angDeg = num("oAng");
@@ -1122,6 +1146,25 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       $("oHint").innerHTML = r.needExtra
         ? "The angled cut already leaves <b>" + frac(r.freeStraight) + "</b> of straight at each corner. Your connection wants more, so keep the <b>" + frac(r.endAllow) + "</b> collar."
         : "The angled cut leaves <b>" + frac(r.freeStraight) + "</b> of straight at each corner \u2014 that already covers your <b>" + frac(r.endAllow) + "</b> connection, so you can drop the collar to 0 and cut it straight through if you want.";
+      draw(r);
+      return;
+    }
+
+    if(r.rtap){
+      $("cutTitle").textContent = "Rolling tap";
+      $("oCut").textContent = frac(r.cutJoint);
+      $("oCutD").textContent = "cut joint · " + r.cutJoint.toFixed(3) + '"';
+      rows([
+        ["Ell CL length", frac(r.ellCL) + " · " + r.ellCL.toFixed(3)],
+        ["Offset length", frac(r.offLen) + " · " + r.offLen.toFixed(3)],
+        ["Arc length (on main)", frac(r.arcMain) + " · " + r.arcMain.toFixed(3)],
+        ["Travel, main CL", frac(r.travel)],
+        ["Ell arc (CL)", frac(r.ellArc)]
+      ]);
+      $("oRoll").hidden = true;
+      $("oHint").innerHTML = r.cutJoint < 0
+        ? "⚠ Negative — the tap and ell eat up the offset. Open the angle, shorten the tap, or tighten the throat."
+        : "Cut joint is the straight between the tap and the ell. Travel runs from the main centerline — the first <b>" + frac(r.Rmain) + "</b> is inside the main.";
       draw(r);
       return;
     }
@@ -1362,6 +1405,65 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       svgEl.innerHTML = g.join("");
   }
 
+  // rolled tap — main seen end-on (clock/roll view) with the tap, ell and offset dims
+  function rtapDraw(r, svgEl){
+    var g = [];
+    function txt(px,py,t,anchor,big,color){
+      g.push('<text x="' + px + '" y="' + py + '" text-anchor="' + (anchor||"middle") +
+        '" font-family="monospace" font-size="' + (big?12.5:10) + '"' + (big?' font-weight="bold"':'') +
+        ' fill="' + (color||(big?"#B3541E":"#0F1A22")) + '">' + t + '</text>');
+    }
+    function dimline(x1,y1,x2,y2){
+      g.push('<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#0F1A22" stroke-width="1"/>');
+      var vx=(y2-y1), vy=-(x2-x1), L=Math.hypot(vx,vy)||1; vx/=L; vy/=L;
+      [[x1,y1],[x2,y2]].forEach(function(p){
+        g.push('<line x1="' + (p[0]-vx*4) + '" y1="' + (p[1]-vy*4) + '" x2="' + (p[0]+vx*4) + '" y2="' + (p[1]+vy*4) + '" stroke="#0F1A22" stroke-width="1"/>');
+      });
+    }
+    function gline(x1,y1,x2,y2){ g.push('<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="#0F1A22" stroke-width="0.7" stroke-dasharray="3 3"/>'); }
+
+    var cx=118, cy=120, rr=56;
+    // main, end-on
+    g.push('<circle cx="'+cx+'" cy="'+cy+'" r="'+rr+'" fill="#F0F2F4" stroke="#54646F" stroke-width="2"/>');
+    g.push('<circle cx="'+cx+'" cy="'+cy+'" r="2.4" fill="#0F1A22"/>');
+    // branch direction, down-right (drawing angle capped for legibility)
+    var a = Math.max(18, Math.min(62, r.angDeg)) * Math.PI/180;
+    var dx=Math.cos(a), dy=Math.sin(a);
+    var ex=cx+rr*dx, ey=cy+rr*dy;                 // tap exit on main
+    var wpx=Math.max(11, rr*0.36);
+    var tapPx=24, cutPx=52, ellPx=24, brPx=42;
+    var p1=[ex+tapPx*dx, ey+tapPx*dy];
+    var p2=[p1[0]+cutPx*dx, p1[1]+cutPx*dy];
+    var p3=[p2[0]+ellPx*dx, p2[1]+ellPx*dy];
+    var p4=[p3[0]+brPx, p3[1]];
+    var path="M"+ex+","+ey+"L"+p2[0]+","+p2[1]+"L"+p3[0]+","+p3[1]+"L"+p4[0]+","+p4[1];
+    g.push('<path d="'+path+'" fill="none" stroke="#9AA7B1" stroke-width="'+wpx+'" stroke-linecap="butt" stroke-linejoin="round"/>');
+    g.push('<path d="'+path+'" fill="none" stroke="#C9D1D6" stroke-width="'+Math.max(1,wpx-3)+'" stroke-linecap="butt" stroke-linejoin="round"/>');
+    g.push('<path d="'+path+'" fill="none" stroke="#030D8C" stroke-width="1.4" stroke-dasharray="6 4"/>');
+    [[ex,ey],p1,p2].forEach(function(p){ g.push('<circle cx="'+p[0]+'" cy="'+p[1]+'" r="2.6" fill="#FF6A13"/>'); });
+    txt((ex+p1[0])/2+9,(ey+p1[1])/2-5,"tap "+frac(r.tapLen),"start");
+    txt((p1[0]+p2[0])/2+9,(p1[1]+p2[1])/2,"cut "+frac(r.cutJoint),"start",true);
+    txt((p2[0]+p3[0])/2+9,(p2[1]+p3[1])/2+6,"ell","start",false,"#030D8C");
+    // offset-angle wedge (top reference to the tap ray) + arc on the main
+    var upx=cx, upy=cy-rr;
+    g.push('<path d="M'+cx+','+cy+'L'+upx+','+upy+'A'+rr+','+rr+' 0 0 1 '+ex+','+ey+'Z" fill="rgba(46,158,75,.20)" stroke="#2E9E4B" stroke-width="1.5"/>');
+    txt(cx-5, cy-6, r.angDeg.toFixed(0)+"°", "end", false, "#2E7D32");
+    txt(cx+rr*0.72, cy-rr*0.34, "arc "+frac(r.arcMain), "start", false, "#2E7D32");
+    // vertical offset dim (right)
+    var rightX=Math.max(p4[0], cx+rr)+24;
+    gline(cx,cy,rightX,cy); gline(p4[0],p4[1],rightX,p4[1]);
+    dimline(rightX,cy,rightX,p4[1]);
+    txt(rightX+4,(cy+p4[1])/2+4,frac(r.O),"start",true,"#030D8C");
+    // horizontal offset-length dim (top)
+    var topY=Math.min(upy,p3[1])-20;
+    gline(cx,cy,cx,topY); gline(p4[0],p4[1],p4[0],topY);
+    dimline(cx,topY,p4[0],topY);
+    txt((cx+p4[0])/2,topY-4,"offset L "+frac(r.offLen),"middle");
+    var maxX=rightX+46, y0=topY-16, maxY=Math.max(p4[1],cy+rr)+22;
+    svgEl.setAttribute("viewBox", "0 "+y0+" "+maxX+" "+(maxY-y0));
+    svgEl.innerHTML = g.join("");
+  }
+
   function draw(r){
     var W = 400, Ht = 260, pad = 34;
     var g = [], sc, ox, oy;
@@ -1393,6 +1495,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     }
 
     if(r.owl){ owlDraw(r, 0, $("svg")); return; }
+    if(r.rtap){ rtapDraw(r, $("svg")); return; }
 
     var th = r.th, O = r.O;
     if(off.fit === "wye" || off.fit === "single"){
@@ -1491,12 +1594,13 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
   }
   function syncFit(){
     var f = off.fit;
-    $("oDiaBox").hidden  = !(f === "twoR" || f === "wye" || f === "single");
-    $("oDUnit").textContent = f === "wye" ? "in round main" : "in round";
+    $("oDiaBox").hidden  = !(f === "twoR" || f === "wye" || f === "single" || f === "rtap");
+    $("oDUnit").textContent = (f === "wye" || f === "rtap") ? "in round main" : "in round";
     $("oRectBox").hidden = !(f === "twoS" || f === "owl");
-    $("wyeBox").hidden   = f !== "wye";
+    $("wyeBox").hidden   = !(f === "wye" || f === "rtap");
+    $("fitLenRow").hidden = f !== "wye";
     $("ellPanel").hidden = f === "owl";
-    var noRoll = (f === "twoS" || f === "owl");
+    var noRoll = (f === "twoS" || f === "owl" || f === "rtap");
     $("segRoll").hidden  = noRoll;
     if(noRoll) off.roll = "flat";
     $("flatBox").hidden  = f === "owl" || off.roll !== "flat";
