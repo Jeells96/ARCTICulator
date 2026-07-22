@@ -353,6 +353,14 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
   </section>
 
   <section class="panel">
+    <h2>Field check</h2>
+    <p class="sub">After it's running, read the velocity in the duct &mdash; this backs out the CFM you're actually moving, against your target above.</p>
+    <label class="lab" for="iMV">Measured velocity</label>
+    <div class="field"><input id="iMV" type="number" inputmode="numeric" step="50" size="1" placeholder="what your meter reads"><span class="unit">FPM</span></div>
+    <div class="out" id="mvBox" hidden><div class="r" id="mvOut">&mdash;</div><div class="s" id="mvNote"></div></div>
+  </section>
+
+  <section class="panel">
     <h2 id="cvTitle">Round &rarr; square</h2>
     <p class="sub" id="cvSub"></p>
     <div class="src" id="cvSrc"></div>
@@ -608,6 +616,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       $("cvOut").innerHTML = "&mdash;"; $("cvNote").textContent = ""; $("cvSrc").innerHTML = "";
       $("spOut").innerHTML = "&mdash;"; $("spNote").textContent = "";
       $("espBox").hidden = true; $("espTip").hidden = true;
+      $("mvBox").hidden = true;
       return;
     }
 
@@ -629,6 +638,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     typeTip(r);
     convert(r);
     staticP(r);
+    fieldCheck(r);
   }
 
   /* ---------- static pressure over the run ---------- */
@@ -677,6 +687,27 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       }
     } else {
       $("espBox").hidden = true; $("espTip").hidden = true;
+    }
+  }
+
+  /* ---------- field check: measured velocity -> actual CFM ---------- */
+  function fieldCheck(r){
+    var mv = num("iMV");
+    if(mv === null){ $("mvBox").hidden = true; return; }
+    var actual = r.q * mv / r.v;          // area cancels — same duct as the target above
+    var pct = Math.round(actual/r.q*100);
+    $("mvBox").hidden = false;
+    if(mv + 1e-9 >= r.v){
+      $("mvBox").className = "out ok";
+      $("mvOut").innerHTML = f0(actual) + " CFM";
+      $("mvNote").innerHTML = "measured " + f0(mv) + " FPM vs " + f0(r.v) +
+        " design &middot; <b>holding your " + f0(r.q) + " target</b> (" + pct + "%)";
+    } else {
+      $("mvBox").className = "out bad";
+      $("mvOut").innerHTML = f0(actual) + " CFM";
+      $("mvNote").innerHTML = "measured " + f0(mv) + " FPM vs " + f0(r.v) +
+        " design &middot; <b>short " + f0(r.q - actual) + " CFM</b> of your " + f0(r.q) +
+        " target (" + pct + "%)";
     }
   }
 
@@ -782,7 +813,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     s.innerHTML = html;
   });
 
-  ["iFr","iVel","iCfm","iDia","iW","iH","iSide","iLen","iEll90","iEll45","iEsp"].forEach(function(id){
+  ["iFr","iVel","iCfm","iDia","iW","iH","iSide","iLen","iEll90","iEll45","iEsp","iMV"].forEach(function(id){
     $(id).addEventListener("input", function(){ if(id === "iVel") syncChips(); paint(); });
   });
 
