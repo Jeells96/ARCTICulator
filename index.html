@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070C2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ARCTICulator">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<title>ARCTICulator — Arctic Mechanical</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --plate:#070C2B; --plate-2:#141C55; --panel:#F4F6F8;
+  --ink:#0F1A22; --ink-soft:#54646F; --rule:#AAB5BE;
+  --hivis:#FF6A13; --brand:#030D8C;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --cond:"Barlow Condensed",system-ui,sans-serif;
+  --body:"Inter",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{
+  font-family:var(--body);color:var(--ink);font-size:18px;
+  background:
+    repeating-linear-gradient(115deg, rgba(255,255,255,.5) 0 2px, rgba(255,255,255,0) 2px 9px),
+    linear-gradient(160deg,#D6DDE2 0%,#BEC7CE 45%,#CFD7DC 100%);
+  background-attachment:fixed;
+  padding:0 14px calc(56px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:600px;margin:0 auto}
+
+.plate{
+  margin:16px 0 12px;background:linear-gradient(180deg,var(--plate-2),var(--plate));
+  border:1px solid #05081C;border-radius:3px;padding:11px 18px;
+  box-shadow:0 2px 0 rgba(255,255,255,.55), 0 10px 24px -12px rgba(7,12,43,.7);
+}
+.brand{display:flex;align-items:center;gap:11px}
+.brand img{height:38px;width:auto;display:block;filter:brightness(0) invert(1)}
+.brand h1{font-family:var(--cond);font-weight:700;font-size:32px;letter-spacing:.12em;text-transform:uppercase;color:#EAF0F4;margin:0;line-height:1}
+.brand h1 span{color:var(--hivis)}
+
+/* ---------- readout ---------- */
+.head{
+  position:sticky;top:0;z-index:6;margin:0 -14px 16px;padding:14px;
+  background:linear-gradient(180deg,#101745,#080D2C);border-bottom:2px solid var(--hivis);
+  box-shadow:0 10px 22px -10px rgba(7,12,43,.85);
+}
+.head-in{max-width:600px;margin:0 auto}
+.big{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#2A3260;border:1px solid #2A3260;border-radius:3px;overflow:hidden}
+.cell{background:#070B22;padding:11px 12px;min-width:0}
+.cell.solved{background:#0E1640}
+.cell .k{font-family:var(--cond);font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#8494C8;white-space:nowrap}
+.cell .v{font-family:var(--mono);font-size:clamp(22px,7vw,30px);font-weight:600;color:#E8F1F6;line-height:1.15;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cell.solved .v{color:var(--hivis)}
+.cell .u{font-family:var(--mono);font-size:12px;color:#8494C8;font-weight:400;margin-left:3px}
+.drop{margin-top:10px;padding:10px 12px;background:#070B22;border:1px solid #2A3260;border-radius:3px;
+  font-family:var(--mono);font-size:15px;color:#C9D3F2}
+.drop b{color:var(--hivis);font-weight:600}
+.card{display:block;width:100%;text-align:left;background:var(--panel);border:2px solid var(--rule);border-left:6px solid var(--hivis);
+  border-radius:3px;padding:20px 18px;margin-bottom:14px;cursor:pointer}
+.card:active{background:#E7EBEE}
+.card .cT{display:block;font-family:var(--cond);font-size:28px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brand)}
+.card .cS{display:block;font-size:15px;color:var(--ink-soft);margin-top:5px;line-height:1.45}
+.tabs{display:flex;gap:0;border:2px solid #2F3A72;border-radius:3px;overflow:hidden;margin-bottom:12px;background:#0B1130}
+.tabs button{flex:1;min-height:46px;border:0;border-right:2px solid #2F3A72;background:#0B1130;color:#8494C8;cursor:pointer;
+  font-family:var(--cond);font-size:17px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.tabs button:last-child{border-right:0}
+.tabs button[aria-pressed="true"]{background:var(--hivis);color:#1A0A00}
+.cell .dec{font-family:var(--mono);font-size:11px;color:#8494C8;margin-top:2px}
+.roll{margin-top:10px;padding:10px 12px;background:#070B22;border:1px solid #2A3260;border-radius:3px;
+  font-family:var(--mono);font-size:14px;color:#C9D3F2;line-height:1.6}
+.roll b{color:var(--hivis);font-weight:600}
+
+.fits{display:flex;flex-direction:column;gap:8px}
+.fits button{display:block;width:100%;text-align:left;border:2px solid var(--rule);background:#fff;border-radius:3px;padding:12px 14px;cursor:pointer}
+.fits button[aria-pressed="true"]{border-color:var(--plate);border-left:6px solid var(--hivis);box-shadow:inset 0 0 0 1px var(--plate)}
+.fits .fT{display:block;font-family:var(--cond);font-size:19px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.fits button[aria-pressed="true"] .fT{color:var(--brand)}
+.fits .fS{display:block;font-size:13.5px;color:var(--ink-soft);margin-top:2px}
+.cutp{border-left:6px solid var(--hivis)}
+.cutbig{font-family:var(--mono);font-weight:600;font-size:clamp(34px,11vw,48px);color:var(--brand);line-height:1.1}
+.cutbig .cutd{font-size:15px;color:var(--ink-soft);font-weight:400;margin-left:10px}
+.cutrows{margin-top:12px;border-top:1px solid var(--rule)}
+.cutrows .cr{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #E2E7EA;font-family:var(--mono);font-size:15px}
+.out.skew{border-left-color:var(--brand);margin-top:12px}
+.out.skew .r{font-size:17px;color:var(--brand);font-family:var(--cond);font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.out.skew .s{font-family:var(--body);font-size:15px;line-height:1.5;margin-top:6px}
+.out.skew .s b{font-family:var(--mono);color:var(--ink)}
+.tut{width:100%;min-height:56px;border:2px solid var(--brand);background:var(--brand);color:#fff;border-radius:3px;cursor:pointer;
+  font-family:var(--cond);font-size:19px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-top:6px}
+.tut:active{background:#02096b}
+.tutbar{display:flex;align-items:center;gap:8px;margin-top:6px}
+.tutbar button{flex:0 0 auto;min-height:52px;padding:0 18px;border:2px solid var(--plate);background:#fff;color:var(--plate);border-radius:3px;cursor:pointer;
+  font-family:var(--cond);font-size:16px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.tutbar button:disabled{opacity:.35}
+.tutstep{flex:1;text-align:center;font-family:var(--cond);font-size:15px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+.tuttext{background:#EAF0FF;border:2px solid var(--rule);border-left:5px solid var(--brand);border-radius:3px;padding:13px 14px;margin-top:10px;font-size:16px;line-height:1.5;color:var(--ink)}
+.tuttext b{color:var(--brand)}
+.steps{margin:14px 0 0;padding-left:22px;font-size:15px;line-height:1.6;color:var(--ink-soft)}
+.steps li{margin-bottom:8px}
+.steps b{color:var(--ink)}
+.cutrows .cr .ck{font-family:var(--cond);font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);padding-top:1px}
+.dia{background:#fff;border:2px solid var(--rule);border-radius:3px;padding:8px;margin-bottom:16px}
+.dia svg{display:block;width:100%;height:auto}
+.hint-h{font-family:var(--mono);font-size:12px;color:#8494C8;margin:10px 0 0;line-height:1.5}
+
+/* ---------- panels ---------- */
+.panel{background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:16px;margin-bottom:16px}
+.panel > h2{font-family:var(--cond);font-size:19px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin:0 0 4px}
+.panel > h2 + p.sub{font-size:14px;color:var(--ink-soft);margin:0 0 13px;line-height:1.45}
+.seg{display:flex;border:2px solid var(--plate);border-radius:3px;overflow:hidden;background:#fff}
+.seg button{flex:1;min-height:58px;border:0;border-right:2px solid var(--plate);background:#fff;cursor:pointer;
+  font-family:var(--cond);font-size:18px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);padding:0 4px}
+.seg button:last-child{border-right:0}
+.seg.sub{border-top:0;border-radius:0}
+.seg.sub button{min-height:50px;font-size:16px}
+#rectBox{margin-top:-2px}
+.seg button[aria-pressed="true"]{background:var(--plate);color:#fff}
+.seg button:focus-visible{outline:3px solid var(--hivis);outline-offset:-3px}
+
+.field{display:flex;align-items:stretch;min-width:0;border:2px solid var(--ink);border-radius:3px;background:#fff}
+.field.stack{border-top:0;border-radius:0 0 3px 3px}
+.seg[hidden] ~ .field.stack{border-top:2px solid var(--ink);border-radius:3px}
+.field input{flex:1 1 0;width:0;min-width:0;min-height:60px;border:0;background:transparent;padding:0 12px;
+  font-family:var(--mono);font-size:24px;font-weight:600;color:var(--ink)}
+.field input::placeholder{color:#9AA7B1;font-weight:400}
+.field input:focus{outline:0}
+.field:focus-within{box-shadow:0 0 0 3px rgba(255,106,19,.4)}
+.field .unit{display:flex;align-items:center;flex:0 0 auto;padding:0 12px;background:#E7EBEE;border-left:2px solid var(--rule);
+  font-family:var(--cond);font-size:15px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap}
+input[type=number]{-moz-appearance:textfield;appearance:textfield}
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.two{display:grid;grid-template-columns:minmax(0,1fr) 22px minmax(0,1fr);gap:6px;align-items:center}
+.two .x{text-align:center;font-family:var(--mono);font-size:20px;color:var(--ink-soft)}
+[hidden]{display:none!important}
+
+.chips{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:10px}
+.chips.two-up{grid-template-columns:1fr 1fr;margin-top:9px;margin-bottom:0}
+.chips button{
+  min-height:56px;border:2px solid var(--rule);background:#fff;border-radius:3px;cursor:pointer;padding:4px 2px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+}
+.chips button .n{font-family:var(--mono);font-size:18px;font-weight:600;color:var(--ink)}
+.chips button .t{font-family:var(--cond);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.chips button[aria-pressed="true"]{border-color:var(--plate);background:var(--plate)}
+.chips button[aria-pressed="true"] .n{color:#fff}
+.chips button[aria-pressed="true"] .t{color:#8494C8}
+.lab{display:block;font-family:var(--cond);font-size:15px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 7px}
+.lab:first-child{margin-top:0}
+.src{font-family:var(--mono);font-size:15px;color:var(--ink-soft);background:#E7EBEE;border:1px solid var(--rule);border-radius:3px;padding:10px 12px;margin-bottom:4px}
+.src b{color:var(--ink);font-weight:600}
+.tip{font-size:14px;color:var(--ink-soft);margin:11px 0 0;line-height:1.5}
+.out{background:#fff;border:2px solid var(--rule);border-left:5px solid var(--hivis);border-radius:3px;padding:13px 14px;margin-top:12px}
+.out .r{font-family:var(--mono);font-size:22px;font-weight:600;color:var(--ink)}
+.out .s{font-family:var(--mono);font-size:13px;color:var(--ink-soft);margin-top:5px}
+.err{font-family:var(--cond);font-size:17px;font-weight:700;text-transform:uppercase;color:#A8400F;margin:12px 0 0}
+.foot{font-size:13px;color:#4E606D;line-height:1.6;padding:2px}
+.foot b{color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="plate">
+    <div class="brand">
+      <img id="logo" alt="Arctic Mechanical">
+      <h1 id="homeBtn" style="cursor:pointer">ARCTIC<span>ulator</span></h1>
+    </div>
+  </header>
+</div>
+
+<div class="wrap" id="paneHome">
+  <button type="button" class="card" data-go="size">
+    <span class="cT">DUCTulator</span>
+    <span class="cS">Size duct. CFM, velocity, friction, round and square.</span>
+  </button>
+  <button type="button" class="card" data-go="offset">
+    <span class="cT">Offset</span>
+    <span class="cS">Two elbows, wye branch, square fittings. Get your cut piece.</span>
+  </button>
+</div>
+
+<div class="head" id="headBar" hidden>
+  <div class="head-in">
+    <div class="tabs" id="tabs" role="group" aria-label="Tool">
+      <button type="button" data-t="home" aria-pressed="false">&#8962; Home</button>
+      <button type="button" data-t="size" aria-pressed="true">DUCTulator</button>
+      <button type="button" data-t="offset" aria-pressed="false">Offset</button>
+    </div>
+
+    <div id="headSize">
+    <div class="big">
+      <div class="cell solved" id="cA"><div class="k" id="kA">Diameter</div><div class="v"><span id="vA">&mdash;</span><span class="u" id="uA">in</span></div></div>
+      <div class="cell solved" id="cB"><div class="k" id="kB">CFM</div><div class="v"><span id="vB">&mdash;</span><span class="u" id="uB">cfm</span></div></div>
+      <div class="cell" id="cC"><div class="k">Velocity</div><div class="v"><span id="vC">&mdash;</span><span class="u">fpm</span></div></div>
+      <div class="cell" id="cD"><div class="k">Friction</div><div class="v"><span id="vD">&mdash;</span><span class="u">/100ft</span></div></div>
+    </div>
+    <p class="hint-h" id="hint">Orange is what the tool worked out. White is what you set.</p>
+    </div>
+
+  </div>
+</div>
+
+<div class="wrap" id="paneSize">
+
+  <section class="panel">
+    <h2>Duct type</h2>
+    <div class="seg" id="segType" role="group" aria-label="Duct type">
+      <button type="button" data-v="metal" aria-pressed="true">Metal</button>
+      <button type="button" data-v="board" aria-pressed="false">Ductboard</button>
+      <button type="button" data-v="flex" aria-pressed="false">Flex</button>
+    </div>
+    <p class="tip" id="typeTip"></p>
+    <p class="tip" id="flexWarn" hidden><b>Flex assumes it's pulled tight.</b> Left sagging in the joist bay it can cost you double the pressure drop or worse, and no friction rate on this page accounts for that. Pull it tight or size it like it isn't.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Size by</h2>
+    <div class="seg" id="segMode" role="group" aria-label="Size by">
+      <button type="button" data-v="fr" aria-pressed="true">Friction rate</button>
+      <button type="button" data-v="vel" aria-pressed="false">Velocity</button>
+    </div>
+
+    <div id="frBox">
+      <label class="lab" for="iFr">Friction rate</label>
+      <div class="field"><input id="iFr" type="number" inputmode="decimal" step="0.01" size="1" value="0.08"><span class="unit">in wg /100 ft</span></div>
+    </div>
+
+    <div id="velBox" hidden>
+      <label class="lab">Common settings</label>
+      <div class="chips" id="velChips"></div>
+      <label class="lab" for="iVel">Or type it</label>
+      <div class="field"><input id="iVel" type="number" inputmode="numeric" step="50" size="1" value="900"><span class="unit">fpm</span></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Enter either</h2>
+    <div class="seg" id="segKnown" role="group" aria-label="What you know">
+      <button type="button" data-v="cfm" aria-pressed="true">CFM</button>
+      <button type="button" data-v="dia" aria-pressed="false">Duct size</button>
+    </div>
+    <div class="field stack" id="cfmBox"><input id="iCfm" type="number" inputmode="numeric" step="25" size="1" value="800"><span class="unit">CFM</span></div>
+    <div id="sizeBox" hidden>
+      <div class="seg sub" id="segShape" role="group" aria-label="Round or square">
+        <button type="button" data-v="round" aria-pressed="true">Round</button>
+        <button type="button" data-v="square" aria-pressed="false">Square</button>
+      </div>
+      <div class="field stack" id="diaBox"><input id="iDia" type="number" inputmode="decimal" step="1" size="1" value="12"><span class="unit">in round</span></div>
+      <div class="two" id="rectBox" hidden>
+        <div class="field"><input id="iW" type="number" inputmode="decimal" size="1" value="20"><span class="unit">in</span></div>
+        <div class="x">&times;</div>
+        <div class="field"><input id="iH" type="number" inputmode="decimal" size="1" value="10"><span class="unit">in</span></div>
+      </div>
+    </div>
+    <p class="err" id="err" hidden></p>
+  </section>
+
+  <section class="panel">
+    <h2 id="cvTitle">Round &rarr; square</h2>
+    <p class="sub" id="cvSub"></p>
+    <div class="src" id="cvSrc"></div>
+    <div id="cvIn">
+      <label class="lab" for="iSide">Space you've got</label>
+      <div class="field"><input id="iSide" type="number" inputmode="decimal" size="1" value="10"><span class="unit">in side</span></div>
+    </div>
+    <div class="out"><div class="r" id="cvOut">&mdash;</div><div class="s" id="cvNote"></div></div>
+  </section>
+
+</div>
+
+<div class="wrap" id="paneOffset" hidden>
+
+  <section class="panel">
+    <h2>Fitting</h2>
+    <div class="fits" id="fitPick">
+      <button type="button" data-v="twoR" aria-pressed="true"><span class="fT">Two elbows &middot; round</span><span class="fS">S-offset in spiral. Radius ells.</span></button>
+      <button type="button" data-v="twoS" aria-pressed="false"><span class="fT">Two elbows &middot; square</span><span class="fS">S-offset in rectangular. Radius-throat ells.</span></button>
+      <button type="button" data-v="wye" aria-pressed="false"><span class="fT">Wye branch</span><span class="fS">Tap off the main, ell back to parallel.</span></button>
+      <button type="button" data-v="single" aria-pressed="false"><span class="fT">Single elbow</span><span class="fS">One end already sits at the angle &mdash; a tap, a collar, a unit connection.</span></button>
+      <button type="button" data-v="owl" aria-pressed="false"><span class="fT">OWL &middot; cut &amp; flip</span><span class="fS">Field offset out of straight square duct. Two cuts, flip the middle.</span></button>
+    </div>
+  </section>
+
+  <div class="dia"><svg id="svg" viewBox="0 0 400 260" aria-label="Offset diagram"></svg></div>
+
+  <section class="panel" id="ductPanel">
+    <h2>Duct</h2>
+    <div class="field" id="oDiaBox"><input id="oD" type="number" inputmode="decimal" size="1" value="12"><span class="unit" id="oDUnit">in round</span></div>
+    <div class="two" id="oRectBox" hidden>
+      <div class="field"><input id="oBend" type="number" inputmode="decimal" size="1" value="12"><span class="unit">in the bend</span></div>
+      <div class="x">&times;</div>
+      <div class="field"><input id="oOther" type="number" inputmode="decimal" size="1" value="20"><span class="unit">the other</span></div>
+    </div>
+    <div id="wyeBox" hidden>
+      <label class="lab" for="oTap">Tap size</label>
+      <div class="field"><input id="oTap" type="number" inputmode="decimal" size="1" value="8"><span class="unit">in round</span></div>
+      <label class="lab" for="oTapLen">Tap length</label>
+      <div class="field"><input id="oTapLen" type="number" inputmode="decimal" size="1" value="6"><span class="unit">in &middot; standard 6</span></div>
+      <label class="lab" for="oFitLen">Fitting length</label>
+      <div class="field"><input id="oFitLen" type="number" inputmode="decimal" size="1"><span class="unit">in on the main</span></div>
+      <p class="tip" id="fitLenTip"></p>
+    </div>
+    <div id="stubBox" hidden>
+      <label class="lab" for="oStub">Connection stub</label>
+      <div class="field"><input id="oStub" type="number" inputmode="decimal" size="1" value="2"><span class="unit">in past the angle</span></div>
+      <p class="tip">How much straight sticks out of whatever you're landing on &mdash; a tap collar, a unit flange. Zero if you're cutting right to it.</p>
+    </div>
+  </section>
+
+  <section class="panel" id="ellPanel">
+    <h2>Elbow</h2>
+    <div id="throatBox">
+      <label class="lab" for="oThroat">Throat radius</label>
+      <div class="field"><input id="oThroat" type="number" inputmode="decimal" size="1"><span class="unit">in</span></div>
+      <div class="chips" id="rChips"></div>
+      <p class="tip" id="throatTip"></p>
+    </div>
+    <label class="lab">Angle</label>
+    <div class="chips" id="angChips"></div>
+    <div class="field"><input id="oAng" type="number" inputmode="decimal" step="1" size="1" value="45"><span class="unit">degrees</span></div>
+  </section>
+
+  <section class="panel" id="offPanel">
+    <h2>Offset</h2>
+    <div class="seg" id="segRoll" role="group" aria-label="Offset kind">
+      <button type="button" data-v="flat" aria-pressed="true">Straight</button>
+      <button type="button" data-v="roll" aria-pressed="false">Rolling</button>
+    </div>
+    <div class="field stack" id="flatBox"><input id="oOff" type="number" inputmode="decimal" size="1" value="25"><span class="unit">in offset</span></div>
+    <div id="rollBox" hidden>
+      <label class="lab" for="oH">Sideways</label>
+      <div class="field"><input id="oH" type="number" inputmode="decimal" size="1" value="20"><span class="unit">in</span></div>
+      <label class="lab" for="oV">Up or down</label>
+      <div class="field"><input id="oV" type="number" inputmode="decimal" size="1" value="15"><span class="unit">in</span></div>
+    </div>
+    <div id="owlBox" hidden>
+      <label class="lab">Method</label>
+      <div class="seg" id="segMeth" role="group" aria-label="Offset method">
+        <button type="button" data-v="endcut" aria-pressed="true">End cuts</button>
+        <button type="button" data-v="flip" aria-pressed="false">Cut &amp; flip</button>
+      </div>
+      <p class="tip" id="methTip"></p>
+      <label class="lab" for="owlO">Offset needed</label>
+      <div class="field"><input id="owlO" type="number" inputmode="decimal" size="1" value="8"><span class="unit">in</span></div>
+      <label class="lab">Length I'm working from</label>
+      <div class="seg" id="segLen" role="group" aria-label="Which length">
+        <button type="button" data-v="stock" aria-pressed="true">I have stock</button>
+        <button type="button" data-v="end" aria-pressed="false">I need finished</button>
+      </div>
+      <div class="field stack"><input id="owlLen" type="number" inputmode="decimal" size="1" value="96"><span class="unit" id="owlLenU">in stock</span></div>
+      <p class="tip" id="owlLenTip"></p>
+      <div id="connBox">
+      <label class="lab">End connection</label>
+      <div class="seg" id="segEnd" role="group" aria-label="End connection">
+        <button type="button" data-v="raw" aria-pressed="true">S &amp; drive</button>
+        <button type="button" data-v="tdc" aria-pressed="false">TDC / Ductmate</button>
+      </div>
+      <label class="lab" for="owlEnd">Straight each end</label>
+      <div class="field"><input id="owlEnd" type="number" inputmode="decimal" step="0.25" size="1" value="1"><span class="unit">in for the connection</span></div>
+      <p class="tip" id="endTip"></p>
+      </div>
+    </div>
+    <p class="err" id="oErr" hidden></p>
+  </section>
+
+  <section class="panel cutp" id="cutPanel">
+    <h2 id="cutTitle">Your cut</h2>
+    <div class="cutbig"><span id="oCut">&mdash;</span><span class="cutd" id="oCutD"></span></div>
+    <div class="cutrows" id="oRows"></div>
+    <div class="out skew" id="skewCard" hidden>
+      <div class="r" id="skewHead">No-cut option</div>
+      <div class="s" id="skewBody"></div>
+    </div>
+    <div class="roll" id="oRoll" hidden></div>
+    <button type="button" class="tut" id="tutBtn" hidden>&#9654;&ensp;Walk me through the cuts</button>
+    <div class="tutbar" id="tutBar" hidden>
+      <button type="button" id="tutPrev">&#8249; Back</button>
+      <div class="tutstep" id="tutStep">Step 1 of 6</div>
+      <button type="button" id="tutNext">Next &#8250;</button>
+    </div>
+    <div class="dia" id="tutDia" hidden><svg id="tutSvg" viewBox="0 30 420 150" aria-label="Tutorial diagram"></svg></div>
+    <p class="tuttext" id="tutText" hidden></p>
+    <ol class="steps" id="owlSteps" hidden>
+      <li>Square a line around the duct at each end of the middle piece.</li>
+      <li>From each line, measure the <b>layout mark</b> across the cheek &mdash; top corner to bottom corner &mdash; and strike the diagonal. <b>Both diagonals lean the same way.</b></li>
+      <li>Cut both lines, all four sides.</li>
+      <li>Flip the middle piece end for end. Don't rotate it &mdash; flip it like closing a book.</li>
+      <li>Fit it back in. The duct now steps over by your offset.</li>
+    </ol>
+    <p class="tip" id="oHint"></p>
+  </section>
+
+  <p class="foot">
+    <b>Offsets.</b> Cut joint = travel &minus; both tangent lengths, where travel is offset &divide; sin(angle) and each tangent is the elbow centerline radius &times; tan(half the angle). Centerline radius is throat + half the duct; a mitered ell has no radius, so the cut joint is the whole travel. Rolling offsets use the true offset &mdash; the square root of sideways&sup2; + up&sup2; &mdash; and the roll angle is what you rotate the fitting to. Everything is centerline; add your own seam and joint allowance.
+    <br><br><b>Friction rate is your number, not the material's.</b> It comes from the fan's available static divided by the run length &mdash; 0.08 is 0.08 whether it's metal, board or flex. What the material changes is the <b>size</b> you need to hit that rate, which is what the line under Duct type shows you.
+    Metal uses the ASHRAE friction chart equation, same as the dial. Ductboard and flex use Darcy&ndash;Weisbach with Colebrook&ndash;White at 0.003 and 0.010 ft roughness. Square and round convert on equal friction (Huebscher), exact, never rounded to stock &mdash; round up to what you can buy.
+  </p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  document.getElementById("logo").src = "data:image/png;base64,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";
+  var $ = function(id){ return document.getElementById(id); };
+
+  var VELS = [
+    [600,"return"], [800,"branch"], [1000,"trunk"],
+    [1200,"main"],  [1500,"riser"], [2000,"high"]
+  ];
+  var state = { type:"metal", mode:"fr", known:"cfm", shape:"round" };
+
+  /* ---------- math ---------- */
+  var NU = 1.56e-4, ROUGH = { board:0.003, flex:0.010 };
+  function vel(q,d){ return 183.35*q/(d*d); }
+  function ff(d,v,eps){
+    var dft=d/12, vf=Math.abs(v)/60, Re=vf*dft/NU;
+    if(Re < 1) return 0;
+    if(Re < 2300) return 64/Re;
+    var f=0.02, i, rhs, fn;
+    for(i=0;i<60;i++){
+      rhs = -2*Math.log(eps/(3.7*dft) + 2.51/(Re*Math.sqrt(f)))/Math.LN10;
+      fn = 1/(rhs*rhs);
+      if(Math.abs(fn-f) < 1e-12){ f=fn; break; }
+      f = fn;
+    }
+    return f;
+  }
+  function drop100(d,q,t){
+    t = t || state.type;
+    if(t === "metal") return 0.109136*Math.pow(q,1.9)/Math.pow(d,5.02);
+    var v = vel(q,d);
+    return ff(d,v,ROUGH[t])*(100/(d/12))*Math.pow(v/4005,2);
+  }
+  function diaFor(q,fr,t){
+    var lo=0.5, hi=400, m, i;
+    if(drop100(hi,q,t) > fr) return null;
+    for(i=0;i<80;i++){ m=(lo+hi)/2; if(drop100(m,q,t) > fr) lo=m; else hi=m; }
+    return (lo+hi)/2;
+  }
+  function cfmFor(d,fr,t){
+    var lo=0.01, hi=500000, m, i;
+    for(i=0;i<80;i++){ m=(lo+hi)/2; if(drop100(d,m,t) < fr) lo=m; else hi=m; }
+    return (lo+hi)/2;
+  }
+  function hueb(a,b){ return 1.30*Math.pow(a*b,0.625)/Math.pow(a+b,0.25); }
+  function sideFor(de,k){                       // always answers — no matter how silly the number
+    var lo=0.01, hi=1e6, m, i;
+    for(i=0;i<200;i++){ m=(lo+hi)/2; if(hueb(k,m) < de) lo=m; else hi=m; }
+    return (lo+hi)/2;
+  }
+  function num(id){ var v = parseFloat($(id).value); return (isFinite(v) && v > 0) ? v : null; }
+  function f0(n){ return Math.round(n).toLocaleString("en-US"); }
+  function f1(n){
+    var d = Math.abs(n-Math.round(n)) < 0.05 ? 0 : 1;
+    return n.toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d});
+  }
+  function f3(n){ return n.toLocaleString("en-US",{minimumFractionDigits:3,maximumFractionDigits:3}); }
+  function frNow(){ return state.mode === "fr" ? (num("iFr") || 0.08) : 0.08; }
+
+  /* ---------- the calc ---------- */
+  function calc(){
+    var shape = state.known === "cfm" ? "round" : state.shape;
+    var q, d, v, fr, w, h;
+
+    function readSize(){
+      if(shape === "round"){
+        d = num("iDia");
+        return d === null ? "Enter a duct size above zero." : null;
+      }
+      w = num("iW"); h = num("iH");
+      if(w === null || h === null) return "Enter both sides above zero.";
+      d = hueb(w,h);
+      return null;
+    }
+    function areaSqFt(){ return shape === "round" ? d*d/183.35 : (w*h)/144; }
+
+    if(state.mode === "fr"){
+      fr = num("iFr");
+      if(fr === null) return { err:"Enter a friction rate above zero." };
+      if(state.known === "cfm"){
+        q = num("iCfm");
+        if(q === null) return { err:"Enter a CFM above zero." };
+        d = diaFor(q,fr);
+        if(d === null) return { err:"No duct that big \u2014 check the numbers." };
+      } else {
+        var e1 = readSize(); if(e1) return { err:e1 };
+        q = cfmFor(d,fr);
+      }
+      v = q/areaSqFt();
+    } else {
+      v = num("iVel");
+      if(v === null) return { err:"Enter a velocity above zero." };
+      if(state.known === "cfm"){
+        q = num("iCfm");
+        if(q === null) return { err:"Enter a CFM above zero." };
+        d = Math.sqrt(183.35*q/v);
+      } else {
+        var e2 = readSize(); if(e2) return { err:e2 };
+        q = v*areaSqFt();
+      }
+      fr = drop100(d,q);
+    }
+    return { q:q, d:d, v:v, fr:fr, w:w, h:h, shape:shape };
+  }
+
+  function paint(){
+    var r = calc();
+    $("err").hidden = !r.err;
+    if(r.err){
+      $("err").textContent = r.err;
+      ["vA","vB","vC","vD"].forEach(function(i){ $(i).innerHTML = "&mdash;"; });
+      $("cvOut").innerHTML = "&mdash;"; $("cvNote").textContent = ""; $("cvSrc").innerHTML = "";
+      return;
+    }
+
+    var sq = r.shape === "square";
+    $("kA").textContent = sq ? "Round eq" : "Diameter";
+    $("vA").textContent = f1(r.d);
+    $("vB").textContent = f0(r.q);
+    $("vC").textContent = f0(r.v);
+    $("vD").textContent = f3(r.fr);
+
+    var solveDia = state.known === "cfm";
+    $("cA").className = "cell" + (solveDia || sq ? " solved" : "");
+    $("cB").className = "cell" + (solveDia ? "" : " solved");
+    $("cC").className = "cell" + (state.mode === "vel" && !sq ? "" : " solved");
+    $("cD").className = "cell" + (state.mode === "fr" ? "" : " solved");
+
+    $("hint").textContent = "Orange is what the tool worked out. White is what you set.";
+    $("flexWarn").hidden = state.type !== "flex";
+    typeTip(r);
+    convert(r);
+  }
+
+  /* ---------- what the material costs you ---------- */
+  var TYPES = [["metal","Metal"],["board","Board"],["flex","Flex"]];
+  function typeTip(r){
+    var out = [], fr = num("iFr");
+    if(state.mode === "vel"){
+      TYPES.forEach(function(t){ out.push(t[1] + " " + f3(drop100(r.d, r.q, t[0]))); });
+      $("typeTip").innerHTML = "Same size either way at a set velocity &mdash; only the friction moves: <b>" +
+        out.join(" &middot; ") + "</b> in wg /100 ft.";
+      return;
+    }
+    if(fr === null){ $("typeTip").innerHTML = ""; return; }
+    if(state.known === "cfm"){
+      TYPES.forEach(function(t){
+        var d = diaFor(r.q, fr, t[0]);
+        out.push(t[1] + " " + (d === null ? "\u2014" : f1(d) + "\u2033"));
+      });
+      $("typeTip").innerHTML = f0(r.q) + " cfm at " + f3(fr) + " needs <b>" + out.join(" &middot; ") + "</b>.";
+    } else {
+      TYPES.forEach(function(t){ out.push(t[1] + " " + f0(cfmFor(r.d, fr, t[0]))); });
+      $("typeTip").innerHTML = f1(r.d) + "\u2033 at " + f3(fr) + " carries <b>" + out.join(" &middot; ") + "</b> cfm.";
+    }
+  }
+
+  /* ---------- one converter, pointed whichever way you need ---------- */
+  function convert(r){
+    var fr = frNow();
+    if(r.shape === "square"){
+      $("cvTitle").textContent = "Square \u2192 round";
+      $("cvSub").textContent = "Cheaper to run spiral. Here's the size that matches.";
+      $("cvSrc").innerHTML = "From above: <b>" + f1(r.w) + " \u00D7 " + f1(r.h) + "&Prime;</b> carrying <b>" + f0(r.q) + " cfm</b>";
+      $("cvIn").hidden = true;
+      $("cvOut").innerHTML = f1(r.d) + "&Prime; round";
+      $("cvNote").innerHTML = "same air, same friction &middot; " + f0(vel(r.q,r.d)) +
+        " fpm in the pipe vs " + f0(r.v) + " in the square &middot; " +
+        f1(Math.max(r.w,r.h)/Math.min(r.w,r.h)) + ":1";
+      return;
+    }
+
+    $("cvTitle").textContent = "Round \u2192 square";
+    $("cvSub").textContent = "It won't fit where they drew it. Type the space you've got.";
+    $("cvSrc").innerHTML = "From above: <b>" + f1(r.d) + "&Prime; round</b> carrying <b>" + f0(r.q) + " cfm</b>";
+    $("cvIn").hidden = false;
+    var s = num("iSide");
+    if(s === null){ $("cvOut").innerHTML = "&mdash;"; $("cvNote").textContent = "Type the side you're stuck with."; return; }
+    var o = sideFor(r.d, s);
+    var vSq = r.q/((o*s)/144);
+    $("cvOut").innerHTML = f1(o) + " &times; " + f1(s) + "&Prime;";
+    $("cvNote").innerHTML = "same as " + f1(r.d) + "&Prime; round &middot; same " + f0(r.q) + " cfm at " + f3(fr) +
+      " &middot; " + f0(vSq) + " fpm vs " + f0(r.v) + " in the pipe &middot; " +
+      f1(Math.max(o,s)/Math.min(o,s)) + ":1";
+  }
+
+  /* ---------- wiring ---------- */
+  function seg(id,key,after){
+    var g = $(id);
+    g.addEventListener("click", function(e){
+      var b = e.target.closest("button"); if(!b) return;
+      Array.prototype.forEach.call(g.querySelectorAll("button"), function(x){
+        x.setAttribute("aria-pressed", String(x === b));
+      });
+      state[key] = b.dataset.v;
+      if(after) after();
+      paint();
+    });
+  }
+  seg("segType","type");
+  seg("segMode","mode", function(){
+    $("frBox").hidden  = state.mode !== "fr";
+    $("velBox").hidden = state.mode !== "vel";
+  });
+  seg("segKnown","known", function(){
+    $("cfmBox").hidden  = state.known !== "cfm";
+    $("sizeBox").hidden = state.known !== "dia";
+  });
+  seg("segShape","shape", function(){
+    $("diaBox").hidden  = state.shape !== "round";
+    $("rectBox").hidden = state.shape !== "square";
+  });
+
+  var chips = $("velChips");
+  VELS.forEach(function(p){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.innerHTML = '<span class="n">' + p[0] + '</span><span class="t">' + p[1] + '</span>';
+    b.setAttribute("aria-pressed","false");
+    b.addEventListener("click", function(){ $("iVel").value = p[0]; syncChips(); paint(); });
+    chips.appendChild(b);
+  });
+  function syncChips(){
+    var v = parseFloat($("iVel").value);
+    Array.prototype.forEach.call(chips.querySelectorAll("button"), function(b,i){
+      b.setAttribute("aria-pressed", String(VELS[i][0] === v));
+    });
+  }
+
+  ["iFr","iVel","iCfm","iDia","iW","iH","iSide"].forEach(function(id){
+    $(id).addEventListener("input", function(){ if(id === "iVel") syncChips(); paint(); });
+  });
+
+  syncChips();
+  paint();
+
+  /* ================= OFFSET ================= */
+  var off = { fit:"twoR", roll:"flat", lenMode:"stock", endConn:"raw", method:"endcut" };
+  var tutOn = false, tutStep = 1, tutR = null;
+  function tutTextFor(n, r){
+    if(r.endcut){
+      switch(n){
+        case 1: return (r.lenMode === "stock" ? "Your <b>" + frac(r.blank) + "</b> stick." : "Cut a <b>" + frac(r.blank) + "</b> blank.") + " Lay it flat, cheek up.";
+        case 2: return "<b>First cut.</b> Mark <b>" + frac(r.mark) + "</b> along the edge and strike the diagonal. The wedge comes off the <b>bottom</b> corner.";
+        case 3: return "<b>Second cut \u2014 parallel, not mirrored.</b> Same " + frac(r.mark) + " mark, same lean, other end. This wedge comes off the <b>top</b> corner \u2014 opposite sides.";
+        case 4: return "Tilt it in <b>" + r.angDeg.toFixed(1) + "\u00B0</b>. The cut faces sit plumb \u2014 square to both connections \u2014 and it steps over <b>" + frac(r.O) + "</b>. No collars, no flip.";
+      }
+      return "";
+    }
+    var m = frac(r.mark), M = frac(r.M), O = frac(r.O), e = frac(r.endAllow), stk = frac(r.stock);
+    var conn = r.tdc ? "TDC frame" : "S&drive";
+    switch(n){
+      case 1: return "Start with your <b>" + stk + "</b> stick" + (r.lenMode==="end" ? " (that's what to cut so it finishes at " + frac(r.endLen) + ")" : "") + ". Lay it flat, one cheek up.";
+      case 2: return r.needExtra
+        ? "Measure in <b>" + e + "</b> from each end and square a line — that flat holds your <b>" + conn + "</b>. Everything between the two lines is in play."
+        : "Your cut already leaves <b>" + frac(r.freeStraight) + "</b> of straight at the corner, enough for the <b>" + conn + "</b> — so you can skip the collar. Square a line at each end.";
+      case 3: return "<b>First cut.</b> From the top corner strike a diagonal down across the cheek, <b>" + m + "</b> over. Cut all four sides.";
+      case 4: return "<b>Second cut — mirror it.</b> Same <b>" + m + "</b> mark but leaning the other way, up from the bottom corner. Opposite hands, not parallel.";
+      case 5: return "Now you have three pieces: two <b>KEEP</b> ends and the <b>" + M + " MIDDLE</b> that flips.";
+      case 6: return "Flip the middle end for end and band it back. The duct steps over <b>" + O + "</b> and finishes at <b>" + frac(r.endLen) + "</b>.";
+    }
+    return "";
+  }
+  function tutRender(){
+    if(!tutR) return;
+    var tutMax = tutR && tutR.endcut ? 4 : 6;
+    $("tutStep").textContent = "Step " + tutStep + " of " + tutMax;
+    $("tutText").innerHTML = tutTextFor(tutStep, tutR);
+    $("tutPrev").disabled = tutStep <= 1;
+    $("tutNext").textContent = tutStep >= 6 ? "Done" : "Next ›";
+    owlDraw(tutR, tutStep, $("tutSvg"));
+  }
+  var ANGLES = [22.5, 30, 45, 60, 90];
+  var WYE_LEN = {6:12,8:16,10:20,12:22,14:24,16:28,18:30,20:32,22:36,24:38,26:42,28:44};
+  var fitLenTouched = false, throatTouched = false;
+
+  function frac(n){
+    if(!isFinite(n)) return "\u2014";
+    var neg = n < 0; n = Math.abs(n);
+    var w = Math.floor(n + 1e-9), nm = Math.round((n - w)*16);
+    if(nm === 16){ w++; nm = 0; }
+    var s;
+    if(nm === 0) s = w + '"';
+    else {
+      var dd = 16, g = (function(a,b){ while(b){ var t=b; b=a%b; a=t; } return a; })(nm,dd);
+      s = (w ? w + " " : "") + (nm/g) + "/" + (dd/g) + '"';
+    }
+    return (neg ? "-" : "") + s;
+  }
+  function wyeStd(tap){
+    if(WYE_LEN[tap]) return WYE_LEN[tap];
+    var ks = Object.keys(WYE_LEN).map(Number).sort(function(a,b){return a-b;});
+    if(tap <= ks[0]) return WYE_LEN[ks[0]];
+    if(tap >= ks[ks.length-1]) return WYE_LEN[ks[ks.length-1]];
+    for(var i=0;i<ks.length-1;i++){
+      if(tap > ks[i] && tap < ks[i+1]){
+        var f = (tap-ks[i])/(ks[i+1]-ks[i]);
+        return WYE_LEN[ks[i]] + f*(WYE_LEN[ks[i+1]]-WYE_LEN[ks[i]]);
+      }
+    }
+    return WYE_LEN[ks[0]];
+  }
+  function bendDim(){
+    if(off.fit === "twoS" || off.fit === "owl") return num("oBend");
+    if(off.fit === "wye" || off.fit === "single") return num("oTap");
+    return num("oD");
+  }
+  function syncFitLen(){
+    if(fitLenTouched) return;
+    var tap = num("oTap");
+    if(tap !== null){
+      $("oFitLen").value = Math.round(wyeStd(tap));
+      $("fitLenTip").innerHTML = "Standard for a " + f1(tap) + "\u2033 tap. Change it if your shop runs different.";
+    }
+  }
+  function stdCL(){ return (off.fit === "twoS") ? 1.0 : 1.5; }
+  function syncThroat(){
+    if(throatTouched) return;
+    var D = bendDim();
+    if(D === null) return;
+    $("oThroat").value = +(stdCL()*D - D/2).toFixed(3);
+    throatTipTxt();
+  }
+  function endTipTxt(){
+    var e = num("owlEnd"); if(e === null) e = 1;
+    if(off.endConn === "tdc")
+      $("endTip").innerHTML = "TDC needs flat straight to seat the flange \u2014 you can't miter through a frame. Keeps <b>" + frac(e) + "</b> of straight square at each end; both cuts fall just inboard.";
+    else
+      $("endTip").innerHTML = "S&drive grabs the flat ends. Keeps <b>" + frac(e) + "</b> each end for the cleat; the two miters fall just inside that.";
+  }
+  function owlLenTip(){
+    var Ln = num("owlLen"), Oo = num("owlO"), e = num("owlEnd"); if(e === null) e = 1;
+    if(Ln === null || Oo === null){ $("owlLenTip").textContent = ""; return; }
+    var s = owlSolve(off.lenMode || "stock", Ln, Oo, e);
+    if(!s){ $("owlLenTip").textContent = ""; return; }
+    if((off.lenMode||"stock") === "stock")
+      $("owlLenTip").innerHTML = "Cut a " + frac(Ln) + " blank \u2014 finished it runs <b>" + frac(s.endLen) + "</b> end to end.";
+    else
+      $("owlLenTip").innerHTML = "To finish at " + frac(Ln) + ", start with a <b>" + frac(s.stock) + "</b> blank.";
+  }
+  function throatTipTxt(){
+    var D = bendDim(), t = parseFloat($("oThroat").value);
+    if(D === null || !isFinite(t)){ $("throatTip").textContent = ""; return; }
+    var cl = t + D/2;
+    $("throatTip").innerHTML = "Centerline radius <b>" + frac(cl) + "</b> \u2014 a " + f1(cl/D) + "D ell.";
+  }
+
+  function offCalc(){
+    if(off.fit === "owl"){
+      var Hc = num("oBend"), Oo = num("owlO"), Ln = num("owlLen");
+      if(Hc === null) return { err:"Enter the side in the bend." };
+      if(Oo === null) return { err:"Enter the offset above zero." };
+      if(Ln === null) return { err:"Enter the length." };
+      var lenMode = off.lenMode || "stock";
+      if((off.method || "endcut") === "endcut"){
+        var ec = endcutSolve(lenMode, Ln, Oo, Hc);
+        if(!ec) return { err: "That stick can't tilt far enough for the offset \u2014 use Cut & flip." };
+        return { owl:true, endcut:true, Hc:Hc, O:Oo, th:ec.th, angDeg:ec.th*180/Math.PI,
+                 mark:ec.mark, R:ec.R, blank:ec.blank, lenMode:lenMode,
+                 stock:ec.blank, endLen:ec.R, tdc:(off.endConn === "tdc"),
+                 edge:ec.R/Math.cos(ec.th), open:Hc/Math.cos(ec.th) };
+      }
+      var e = num("owlEnd"); if(e === null) e = 1;
+      var s = owlSolve(lenMode, Ln, Oo, e);
+      if(!s) return { err: lenMode === "stock"
+        ? "Stock is too short for that offset \u2014 use a longer piece."
+        : "Finished length is too short for the end connections." };
+      // the miter overhang: at zero collar, how much straight the corner-to-corner cut leaves
+      var s0 = owlSolve(lenMode, Ln, Oo, 0);
+      var freeStraight = s0 ? Hc*Math.tan(s0.a) : Hc*Math.tan(s.a);
+      var needExtra = e > freeStraight + 1e-6;
+      // no-cut skew: install the straight stick at an angle, no cuts at all
+      var skew = null;
+      if(lenMode === "stock"){
+        if(Oo < Ln){
+          var ts = Math.asin(Oo/Ln);
+          skew = { deg:ts*180/Math.PI, gap:Hc*Math.tan(ts), stick:Ln, covers:Ln*Math.cos(ts) };
+        }
+      } else {
+        var ts2 = Math.atan2(Oo, Ln);
+        skew = { deg:ts2*180/Math.PI, gap:Hc*Math.tan(ts2), stick:Math.sqrt(Ln*Ln+Oo*Oo), covers:Ln };
+      }
+      return { owl:true, Hc:Hc, O:Oo, M:s.M, th:s.th, a:s.a,
+               mark:Hc*Math.tan(s.a), runM:s.M*Math.cos(s.th), lost:s.lost,
+               angDeg:s.th*180/Math.PI, lenMode:lenMode, stock:s.stock, endLen:s.endLen,
+               tdc:(off.endConn === "tdc"), endAllow:e,
+               freeStraight:freeStraight, needExtra:needExtra, skew:skew };
+    }
+
+    var angDeg = num("oAng");
+    if(angDeg === null || angDeg >= 180) return { err:"Angle has to be between 0 and 180." };
+    var th = angDeg*Math.PI/180;
+
+    var O, rollAng = null, Hh, Vv;
+    if(off.roll === "flat" || off.fit === "twoS"){
+      O = num("oOff");
+      if(O === null) return { err:"Enter the offset above zero." };
+    } else {
+      Hh = num("oH"); Vv = num("oV");
+      if(Hh === null || Vv === null) return { err:"Enter both the sideways and the up/down." };
+      O = Math.sqrt(Hh*Hh + Vv*Vv);
+      rollAng = Math.atan2(Vv,Hh)*180/Math.PI;
+    }
+    var travel = O/Math.sin(th);
+    var run = Math.abs(angDeg - 90) < 1e-9 ? 0 : O/Math.tan(th);
+    var base = { angDeg:angDeg, th:th, O:O, travel:travel, run:run, rollAng:rollAng, Hh:Hh, Vv:Vv };
+
+    var Db = bendDim();
+    if(Db === null) return { err:"Enter the duct size above zero." };
+    var t0 = parseFloat($("oThroat").value);
+    if(!isFinite(t0) || t0 < 0) return { err:"Enter a throat radius." };
+    var R = t0 + Db/2, tn = R*Math.tan(th/2);
+    base.D = Db; base.R = R; base.tan = tn; base.arc = R*th;
+
+    if(off.fit === "twoR" || off.fit === "twoS"){
+      base.cut = travel - 2*tn;
+      base.overall = run + 2*tn;
+      return base;
+    }
+    if(off.fit === "single"){
+      var stub = num("oStub"); if(stub === null) stub = 0;
+      base.stub = stub;
+      base.cut = travel - tn - stub;
+      base.overall = run + tn;
+      return base;
+    }
+    var Dm = num("oD");
+    if(Dm === null) return { err:"Enter the main size above zero." };
+    var tapLen = num("oTapLen"); if(tapLen === null) tapLen = 6;
+    var fitLen = num("oFitLen"); if(fitLen === null) fitLen = wyeStd(Db);
+    base.main = Dm; base.tapLen = tapLen; base.fitLen = fitLen;
+    base.cut = travel - tapLen - tn;
+    base.overall = run + tn;
+    return base;
+  }
+
+  function endcutSolve(mode, Ln, O, H){
+    if(mode === "end"){
+      var th = Math.atan2(O, Ln);
+      return { th:th, mark:H*Math.tan(th), R:Ln, blank:Ln/Math.cos(th) + H*Math.tan(th) };
+    }
+    // stock: solve (L - H tan t) sin t = O on the rising branch
+    function f(t){ return (Ln - H*Math.tan(t))*Math.sin(t) - O; }
+    var a=1e-6, b=Math.atan2(Ln,H)*0.999, i, m1, m2;
+    for(i=0;i<60;i++){ m1=a+(b-a)/3; m2=b-(b-a)/3; if(f(m1)<f(m2)) a=m1; else b=m2; }
+    var peak=(a+b)/2;
+    if(f(peak) < 0) return null;
+    var lo=1e-6, hi=peak, m;
+    for(i=0;i<80;i++){ m=(lo+hi)/2; if(f(m)<0) lo=m; else hi=m; }
+    var th2=(lo+hi)/2;
+    return { th:th2, mark:H*Math.tan(th2), R:(Ln - H*Math.tan(th2))*Math.cos(th2), blank:Ln };
+  }
+  function owlSolve(mode, L, O, e){
+    var M, th, stock, endLen;
+    if(mode === "stock"){
+      stock = L; M = L - 2*e;
+      if(M <= 0 || O >= M) return null;
+      th = Math.asin(O/M); endLen = 2*e + M*Math.cos(th);
+    } else {
+      endLen = L; var hz = L - 2*e;
+      if(hz <= 0) return null;
+      M = Math.sqrt(O*O + hz*hz); th = Math.atan2(O, hz); stock = M + 2*e;
+    }
+    return { M:M, th:th, a:th/2, stock:stock, endLen:endLen, lost:M*(1-Math.cos(th)) };
+  }
+  function setEndcutSteps(r){
+    $("owlSteps").innerHTML =
+      "<li>Cut a <b>" + frac(r.blank) + "</b> blank" + (r.lenMode === "end" ? " \u2014 that's what tilts in to cover " + frac(r.R) : "") + ".</li>" +
+      "<li>At one end, mark <b>" + frac(r.mark) + "</b> along the edge from the corner and strike the diagonal. Cut it \u2014 the wedge comes off the <b>bottom</b> corner.</li>" +
+      "<li>Other end: same <b>" + frac(r.mark) + "</b> mark, same lean \u2014 <b>the cuts are parallel</b> \u2014 but this wedge comes off the <b>top</b> corner. Opposite sides.</li>" +
+      "<li>Tilt the piece in " + r.angDeg.toFixed(1) + "\u00B0. The cut faces sit plumb \u2014 square to both connections \u2014 and the duct steps over <b>" + frac(r.O) + "</b>.</li>";
+  }
+  function setOwlSteps(r){
+    var ol = $("owlSteps");
+    var pre = r.tdc
+      ? "<li>Roll the TDC frames on both ends first \u2014 they sit on flat straight duct, so keep <b>" + frac(r.endAllow) + "</b> of straight square at each end and put the cuts inboard of them.</li>"
+      : "<li>Measure in <b>" + frac(r.endAllow) + "</b> from each end for the S&drive, and square a line around the duct there. Everything between is in play.</li>";
+    ol.innerHTML = pre +
+      "<li>That leaves a <b>" + frac(r.M) + " middle piece</b> \u2014 the part that flips \u2014 with a short <b>keep</b> collar at each end.</li>" +
+      "<li><b>First cut:</b> from the top corner, strike the <b>" + frac(r.mark) + " diagonal</b> down across the cheek. Cut all four sides.</li>" +
+      "<li><b>Second cut: mirror it.</b> Same " + frac(r.mark) + " mark, but leaning the opposite way \u2014 from the bottom corner up. The two cuts are opposite hands, not parallel.</li>" +
+      "<li>Flip the middle piece end for end \u2014 like closing a book \u2014 so the two bevels meet the collars. That forms both bends and steps the duct over <b>" + frac(r.O) + "</b>.</li>" +
+      "<li>Band or seam the three pieces back together. Nothing is thrown away.</li>";
+  }
+  function rows(list){
+    $("oRows").innerHTML = list.map(function(r){
+      return '<div class="cr"><span class="ck">' + r[0] + '</span><span>' + r[1] + '</span></div>';
+    }).join("");
+  }
+
+  function offPaint(){
+    var r = offCalc();
+    $("oErr").hidden = !r.err;
+    $("owlSteps").hidden = true;
+    if(r.err){
+      $("oErr").textContent = r.err;
+      $("oCut").innerHTML = "&mdash;"; $("oCutD").textContent = "";
+      $("oRows").innerHTML = ""; $("oRoll").hidden = true; $("oHint").textContent = "";
+      $("svg").innerHTML = "";
+      $("tutBtn").hidden = true; $("tutBar").hidden = true; $("tutText").hidden = true;
+      $("tutDia").hidden = true; $("skewCard").hidden = true;
+      return;
+    }
+    if(!r.owl){ $("tutBtn").hidden = true; $("tutBar").hidden = true; $("tutText").hidden = true; $("tutDia").hidden = true; $("skewCard").hidden = true; tutOn = false; }
+    throatTipTxt();
+
+    if(r.owl && r.endcut){
+      owlLenTip();
+      $("cutTitle").textContent = "Your layout";
+      $("oCut").textContent = frac(r.mark);
+      $("oCutD").textContent = "cut mark \u00B7 " + r.mark.toFixed(3) + '"';
+      rows([
+        ["Tilt", r.angDeg.toFixed(1) + "\u00B0"],
+        ["Cut angle", r.angDeg.toFixed(1) + "\u00B0 off square, both ends"],
+        ["Wedges off", "opposite corners \u2014 cuts parallel"],
+        ["Blank to cut", frac(r.blank)],
+        ["Run covered", frac(r.R)],
+        ["Opening on the cut face", frac(r.open) + " (vs " + frac(r.Hc) + ")"]
+      ]);
+      $("skewCard").hidden = true;
+      tutR = r;
+      $("tutBtn").hidden = tutOn;
+      $("tutBar").hidden = !tutOn;
+      $("tutDia").hidden = !tutOn;
+      $("tutText").hidden = !tutOn;
+      $("owlSteps").hidden = tutOn;
+      if(tutOn) tutRender(); else setEndcutSteps(r);
+      $("oRoll").hidden = true;
+      $("oHint").innerHTML = "Both cut faces sit plumb once it's tilted in \u2014 <b>square to the connections, no extra straight needed</b>. That's the whole point.";
+      draw(r);
+      return;
+    }
+
+    if(r.owl){
+      owlLenTip(); endTipTxt();
+      $("cutTitle").textContent = "Your layout";
+      $("oCut").textContent = frac(r.mark);
+      $("oCutD").textContent = "layout mark \u00B7 " + r.mark.toFixed(3) + '"';
+      rows([
+        ["Cut angle", (r.a*180/Math.PI).toFixed(1) + "\u00B0 off square"],
+        ["Duct turns", r.angDeg.toFixed(1) + "\u00B0 and back"],
+        ["Middle piece", frac(r.M) + " \u2014 the flip"],
+        ["Free straight from the miter", frac(r.freeStraight)],
+        ["Straight each end", frac(r.endAllow) + (r.needExtra ? " (extra)" : " \u2014 covered")],
+        ["Cut from stock", frac(r.stock)],
+        ["Finished run", frac(r.endLen)],
+        ["Length lost", frac(r.lost)]
+      ]);
+      if(r.skew){
+        var sk = r.skew, verdict;
+        if(sk.deg <= 2) verdict = "That's nothing \u2014 either connection pulls it up. <b>Don't cut anything.</b>";
+        else if(sk.deg <= 5) verdict = r.tdc
+          ? "S&drive would pull that; a TDC gasket is fighting it. Your call."
+          : "An S&drive will pull that up. <b>Probably skip the cuts.</b>";
+        else verdict = "Too far out of square to fudge \u2014 cut the offset.";
+        $("skewCard").hidden = false;
+        $("skewHead").textContent = "No-cut option \u2014 run it skewed";
+        $("skewBody").innerHTML =
+          "Install " + (r.lenMode === "stock" ? "your <b>" + frac(sk.stick) + "</b> stick" : "a <b>" + frac(sk.stick) + "</b> stick") +
+          " tilted <b>" + sk.deg.toFixed(1) + "\u00B0</b> \u2014 no cuts. It steps over " + frac(r.O) +
+          " and covers <b>" + frac(sk.covers) + "</b> of run. The ends sit <b>" + frac(sk.gap) +
+          "</b> out of square across the " + frac(r.Hc) + " side. " + verdict;
+      } else { $("skewCard").hidden = true; }
+      tutR = r;
+      $("tutBtn").hidden = tutOn;
+      $("tutBar").hidden = !tutOn;
+      $("tutDia").hidden = !tutOn;
+      $("tutText").hidden = !tutOn;
+      $("owlSteps").hidden = tutOn;
+      if(tutOn) tutRender(); else setOwlSteps(r);
+      $("oRoll").hidden = true;
+      $("oHint").innerHTML = r.needExtra
+        ? "The angled cut already leaves <b>" + frac(r.freeStraight) + "</b> of straight at each corner. Your connection wants more, so keep the <b>" + frac(r.endAllow) + "</b> collar."
+        : "The angled cut leaves <b>" + frac(r.freeStraight) + "</b> of straight at each corner \u2014 that already covers your <b>" + frac(r.endAllow) + "</b> connection, so you can drop the collar to 0 and cut it straight through if you want.";
+      draw(r);
+      return;
+    }
+
+    $("cutTitle").textContent = "Your cut";
+    $("oCut").textContent = frac(r.cut);
+    $("oCutD").textContent = r.cut.toFixed(3) + '"';
+    var list = [["Travel", frac(r.travel)]];
+    if(off.fit === "twoR" || off.fit === "twoS"){
+      list.push(["Ell tangent \u00D72", frac(r.tan) + " each"]);
+      list.push(["Ell arc (CL)", frac(r.arc)]);
+      list.push(["Run gained", frac(r.run)]);
+      list.push(["Overall run", frac(r.overall)]);
+      $("oHint").innerHTML = r.cut < 0
+        ? "\u26A0 Negative \u2014 the ells overlap. Tighten the throat or open the angle."
+        : "Cut is the straight piece between the two ells. Centerline \u2014 add seam and joint allowance.";
+    } else if(off.fit === "single"){
+      list.push(["Ell tangent", frac(r.tan)]);
+      list.push(["Connection stub", frac(r.stub)]);
+      list.push(["Ell arc (CL)", frac(r.arc)]);
+      list.push(["Run gained", frac(r.run)]);
+      $("oHint").innerHTML = r.cut < 0
+        ? "\u26A0 Negative \u2014 no room between the ell and the connection. Open the angle or lose the stub."
+        : "Cut is the straight between the connection and the ell.";
+    } else {
+      list.push(["Tap stub", frac(r.tapLen)]);
+      list.push(["Ell tangent", frac(r.tan)]);
+      list.push(["Ell arc (CL)", frac(r.arc)]);
+      list.push(["Run gained", frac(r.run)]);
+      list.push(["Wye fitting length", frac(r.fitLen)]);
+      $("oHint").innerHTML = r.cut < 0
+        ? "\u26A0 Negative \u2014 the offset is shorter than the tap and ell alone. Open the angle."
+        : "Cut is the straight between the wye tap and the ell. Travel runs main centerline to branch centerline.";
+    }
+    rows(list);
+
+    if(r.rollAng !== null){
+      var mark = off.fit === "twoS" ? null : (r.rollAng/360)*Math.PI*r.D;
+      $("oRoll").hidden = false;
+      $("oRoll").innerHTML =
+        "True offset <b>" + frac(r.O) + "</b> from " + frac(r.Hh) + " sideways and " + frac(r.Vv) + " up<br>" +
+        "Roll the fitting <b>" + r.rollAng.toFixed(1) + "\u00B0</b> off horizontal" +
+        (mark !== null ? " \u2014 <b>" + frac(mark) + "</b> around the pipe" : "");
+    } else { $("oRoll").hidden = true; }
+
+    draw(r);
+  }
+
+  /* ---------- diagrams ---------- */
+  function endcutDraw(r, S, svgEl){
+      var g = [];
+      function txt(px,py,t,anchor,big,color){
+        g.push('<text x="' + px + '" y="' + py + '" text-anchor="' + (anchor||"middle") +
+          '" font-family="monospace" font-size="' + (big?12.5:10.5) + '"' +
+          (big?' font-weight="bold"':'') + ' fill="' + (color||(big?"#B3541E":"#0F1A22")) + '">' + t + '</text>');
+      }
+      function dimline(x1,y1,x2,y2){
+        g.push('<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#0F1A22" stroke-width="1"/>');
+        var vx = (y2-y1), vy = -(x2-x1), L = Math.hypot(vx,vy)||1; vx/=L; vy/=L;
+        [[x1,y1],[x2,y2]].forEach(function(pp){
+          g.push('<line x1="' + (pp[0]-vx*4) + '" y1="' + (pp[1]-vy*4) + '" x2="' + (pp[0]+vx*4) + '" y2="' + (pp[1]+vy*4) + '" stroke="#0F1A22" stroke-width="1"/>');
+        });
+      }
+      var showAll = (S === 0);
+      function on(n){ return showAll || S >= n; }
+
+      var W = 300, cheekH = 44, lean = 22;
+      var x0 = 60, xEnd = x0 + W, yTop = 96;
+      var tY = yTop - cheekH/2, bY = yTop + cheekH/2;
+
+      // step 1: the blank
+      if(on(1)){
+        var lbl = (r.lenMode === "stock") ? "YOUR " + frac(r.blank) + " STICK" : "CUT A " + frac(r.blank) + " BLANK";
+        txt(x0, 46, lbl, "start", true, "#030D8C");
+        dimline(x0, 62, xEnd, 62);
+        txt((x0+xEnd)/2, 58, frac(r.blank), "middle");
+        g.push('<rect x="' + x0 + '" y="' + tY + '" width="' + W + '" height="' + cheekH + '" fill="#F0F2F4" stroke="#54646F" stroke-width="2"/>');
+      }
+      // step 2: first cut — wedge off the BOTTOM at the left end
+      if(on(2)){
+        g.push('<polygon points="' + x0 + ',' + bY + ' ' + (x0+lean) + ',' + bY + ' ' + x0 + ',' + tY + '" fill="#FFE0CC"/>');
+        g.push('<line x1="' + x0 + '" y1="' + tY + '" x2="' + (x0+lean) + '" y2="' + bY + '" stroke="#B3541E" stroke-width="2.8"/>');
+        dimline(x0, bY+12, x0+lean, bY+12);
+        txt((x0+lean/2), bY+25, "mark " + frac(r.mark), "middle", true);
+        txt(x0+lean+6, bY-6, "wedge off the bottom", "start", false, "#B3541E");
+      }
+      // step 3: second cut — parallel, wedge off the TOP at the right end
+      if(on(3)){
+        g.push('<polygon points="' + xEnd + ',' + tY + ' ' + (xEnd-lean) + ',' + tY + ' ' + xEnd + ',' + bY + '" fill="#FFE0CC"/>');
+        g.push('<line x1="' + (xEnd-lean) + '" y1="' + tY + '" x2="' + xEnd + '" y2="' + bY + '" stroke="#B3541E" stroke-width="2.8"/>');
+        dimline(xEnd-lean, tY-10, xEnd, tY-10);
+        txt(xEnd-lean/2, tY-14, "mark " + frac(r.mark), "middle", true);
+        txt(xEnd-lean-6, tY+12, "wedge off the top", "end", false, "#B3541E");
+        txt((x0+xEnd)/2, yTop+4, "CUTS PARALLEL \u2014 opposite corners", "middle", false, "#030D8C");
+      }
+      // step 4: tilted in, ends plumb
+      if(on(4)){
+        var yB = 208, th = Math.min(r.th, 22*Math.PI/180);   // exaggerate but cap for drawing
+        th = Math.max(th, 9*Math.PI/180);
+        var run = W*0.94, rise = run*Math.tan(th);
+        var bx0 = x0, bx1 = bx0 + run;
+        var cyLo = yB + rise/2 + cheekH/2, cyHi = cyLo - rise;
+        // parallelogram with plumb ends
+        var hw = cheekH/2 / Math.cos(th);
+        var p = [
+          [bx0, cyLo - hw], [bx1, cyHi - hw],
+          [bx1, cyHi + hw], [bx0, cyLo + hw]
+        ];
+        g.push('<polygon points="' + p.map(function(q){return q[0]+","+q[1];}).join(" ") + '" fill="#EAF0FF" stroke="#54646F" stroke-width="2"/>');
+        g.push('<line x1="' + bx0 + '" y1="' + cyLo + '" x2="' + bx1 + '" y2="' + cyHi + '" stroke="#030D8C" stroke-width="1.6" stroke-dasharray="7 4"/>');
+        // mating collars (plumb) at both ends
+        [[bx0,cyLo],[bx1,cyHi]].forEach(function(q){
+          g.push('<line x1="' + q[0] + '" y1="' + (q[1]-hw-8) + '" x2="' + q[0] + '" y2="' + (q[1]+hw+8) + '" stroke="#030D8C" stroke-width="2.5"/>');
+        });
+        txt(bx0, yB - rise/2 - cheekH/2 - 12, "TILT IT IN " + r.angDeg.toFixed(1) + "\u00B0 \u2014 ends sit plumb, square to the mates", "start", false, "#030D8C");
+        // offset dim
+        g.push('<line x1="' + (bx0-16) + '" y1="' + cyLo + '" x2="' + (bx0-16) + '" y2="' + cyHi + '" stroke="#0F1A22" stroke-width="1"/>');
+        txt(bx0-20, (cyLo+cyHi)/2+4, frac(r.O), "end", true, "#030D8C");
+        // run dim
+        var fD = cyLo + hw + 16;
+        dimline(bx0, fD, bx1, fD);
+        txt((bx0+bx1)/2, fD+13, frac(r.R) + " run covered", "middle");
+      }
+      var vbH = on(4) ? 290 : 160;
+      svgEl.setAttribute("viewBox", "0 30 " + (xEnd + 40) + " " + vbH);
+      svgEl.innerHTML = g.join("");
+  }
+
+  function owlDraw(r, S, svgEl){
+      if(r.endcut){ endcutDraw(r, S, svgEl); return; }
+      var g = [];
+      function txt(px,py,t,anchor,big,color){
+        g.push('<text x="' + px + '" y="' + py + '" text-anchor="' + (anchor||"middle") +
+          '" font-family="monospace" font-size="' + (big?12.5:10.5) + '"' +
+          (big?' font-weight="bold"':'') + ' fill="' + (color||(big?"#B3541E":"#0F1A22")) + '">' + t + '</text>');
+      }
+      function dimline(x1,y1,x2,y2){
+        g.push('<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#0F1A22" stroke-width="1"/>');
+        var vx = (y2-y1), vy = -(x2-x1), L = Math.hypot(vx,vy)||1; vx/=L; vy/=L;
+        [[x1,y1],[x2,y2]].forEach(function(pp){
+          g.push('<line x1="' + (pp[0]-vx*4) + '" y1="' + (pp[1]-vy*4) + '" x2="' + (pp[0]+vx*4) + '" y2="' + (pp[1]+vy*4) + '" stroke="#0F1A22" stroke-width="1"/>');
+        });
+      }
+      // schematic — fixed proportions, real numbers labeled. Never to scale.
+      // S = 0 shows everything; 1..6 reveal progressively.
+      var showAll = (S === 0);
+      function on(n){ return showAll || S >= n; }
+      function only(n){ return showAll || S === n; }
+
+      var midW = 196, endW = 52, cheekH = 40, lean = 17, riseTop = 26;
+      var Lx = 46;
+      var x0 = Lx, xC1 = x0 + endW, xC2 = xC1 + midW, xEnd = xC2 + endW;
+      var yTop = 100;
+      var half = cheekH/2, tY = yTop-half, bY = yTop+half;
+      var a_t = xC1, a_b = xC1 + lean, b_t = xC2, b_b = xC2 - lean;
+
+      // ---- header + full-stock dimension (step 1+) ----
+      var stockLbl = (r.lenMode === "stock") ? "CUT A " + frac(r.stock) + " STICK" : "START WITH A " + frac(r.stock) + " STICK";
+      if(on(1)){
+        txt(x0, 44, stockLbl, "start", true, "#030D8C");
+        if(!tutOn) txt(x0, 59, "two cuts, mirror image \u2014 flip the middle", "start", false, "#54646F");
+        dimline(x0, 74, xEnd, 74);
+        txt((x0+xEnd)/2, 70, frac(r.stock) + (r.lenMode==="stock" ? " on hand" : " to cut"), "middle", false, "#0F1A22");
+      }
+
+      // ---- plain duct body (step 1+) ----
+      if(on(1)) g.push('<rect x="' + x0 + '" y="' + tY + '" width="' + (xEnd-x0) + '" height="' + cheekH + '" fill="#F0F2F4" stroke="#54646F" stroke-width="2"/>');
+
+      // ---- connection collars marked (step 2) ----
+      if(on(2)){
+        [[x0,1,a_t],[xEnd,-1,b_t]].forEach(function(ff){
+          var xx = ff[0], dir = ff[1];
+          g.push('<rect x="' + (dir>0?x0:b_t) + '" y="' + tY + '" width="' + endW + '" height="' + cheekH + '" fill="#EAF0FF"/>');
+          if(r.tdc) g.push('<rect x="' + (xx-3) + '" y="' + (tY-5) + '" width="6" height="' + (cheekH+10) + '" fill="#030D8C"/>');
+          else for(var k=-1;k<=1;k++) g.push('<line x1="' + xx + '" y1="' + (yTop+k*cheekH/4) + '" x2="' + (xx+dir*6) + '" y2="' + (yTop+k*cheekH/4) + '" stroke="#030D8C" stroke-width="1.8"/>');
+        });
+        g.push('<rect x="' + x0 + '" y="' + tY + '" width="' + (xEnd-x0) + '" height="' + cheekH + '" fill="none" stroke="#54646F" stroke-width="2"/>');
+        dimline(x0, bY+16, a_t, bY+16);
+        txt((x0+a_t)/2, bY+29, "keep " + frac(r.endAllow), "middle", false, "#030D8C");
+        dimline(b_t, bY+16, xEnd, bY+16);
+        txt((b_t+xEnd)/2, bY+29, "keep " + frac(r.endAllow), "middle", false, "#030D8C");
+      }
+
+      // ---- first cut (step 3) ----
+      if(on(3)){
+        g.push('<line x1="' + a_t + '" y1="' + tY + '" x2="' + a_b + '" y2="' + bY + '" stroke="#B3541E" stroke-width="2.8"/>');
+        dimline(a_t, tY-12, a_b, tY-12);
+        txt((a_t+a_b)/2, tY-16, "mark " + frac(r.mark), "middle", true);
+      }
+      // ---- second cut, mirrored (step 4) ----
+      if(on(4)){
+        g.push('<line x1="' + b_t + '" y1="' + tY + '" x2="' + b_b + '" y2="' + bY + '" stroke="#B3541E" stroke-width="2.8"/>');
+        txt((b_t+b_b)/2 + 14, bY-6, "mirror", "start", false, "#B3541E");
+      }
+
+      // ---- three sections shaded + labeled (step 5) ----
+      if(on(5)){
+        function poly(pts, fill){ g.push('<polygon points="' + pts.map(function(q){return q[0]+","+q[1];}).join(" ") + '" fill="' + fill + '" stroke="none"/>'); }
+        poly([[x0,tY],[a_t,tY],[a_b,bY],[x0,bY]], "#EAF0FF");
+        poly([[a_t,tY],[b_t,tY],[b_b,bY],[a_b,bY]], "#FFE0CC");
+        poly([[b_t,tY],[xEnd,tY],[xEnd,bY],[b_b,bY]], "#EAF0FF");
+        // redraw outline + cuts on top of fills
+        g.push('<rect x="' + x0 + '" y="' + tY + '" width="' + (xEnd-x0) + '" height="' + cheekH + '" fill="none" stroke="#54646F" stroke-width="2"/>');
+        g.push('<line x1="' + a_t + '" y1="' + tY + '" x2="' + a_b + '" y2="' + bY + '" stroke="#B3541E" stroke-width="2.8"/>');
+        g.push('<line x1="' + b_t + '" y1="' + tY + '" x2="' + b_b + '" y2="' + bY + '" stroke="#B3541E" stroke-width="2.8"/>');
+        txt((x0+a_t)/2, yTop+4, "KEEP", "middle", false, "#3A4A8C");
+        txt((a_t+b_t)/2, yTop-2, "MIDDLE", "middle", true, "#B3541E");
+        txt((a_t+b_t)/2, yTop+13, "flips", "middle", false, "#B3541E");
+        txt((b_t+xEnd)/2, yTop+4, "KEEP", "middle", false, "#3A4A8C");
+        dimline(a_t, bY+16, b_t, bY+16);
+        txt((a_t+b_t)/2, bY+29, "middle " + frac(r.M), "middle", false, "#0F1A22");
+      }
+
+      // ---- after the flip (step 6) — full Z ----
+      if(on(6)){
+        var bHdr = bY + 58;
+        var bx0 = Lx, bx1 = bx0 + endW, bx2 = bx1 + midW, bx3 = bx2 + endW;
+        var cyLo = bHdr + 34 + riseTop, cyHi = cyLo - riseTop;
+        var finLbl = (r.lenMode === "end") ? "FINISHES AT " + frac(r.endLen) + " \u2014 what you asked" : "FINISHES AT " + frac(r.endLen);
+        txt(bx0, bHdr, finLbl, "start", true, "#030D8C");
+        txt(bx0, bHdr+15, "after the flip", "start", false, "#54646F");
+        function seg(x1,y1,x2,y2){
+          g.push('<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#9AA7B1" stroke-width="' + cheekH + '" stroke-linecap="butt"/>');
+          g.push('<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#EAF0FF" stroke-width="' + (cheekH-4) + '" stroke-linecap="butt"/>');
+        }
+        seg(bx0, cyLo, bx1, cyLo); seg(bx1, cyLo, bx2, cyHi); seg(bx2, cyHi, bx3, cyHi);
+        g.push('<path d="M' + bx0 + ',' + cyLo + 'L' + bx1 + ',' + cyLo + 'L' + bx2 + ',' + cyHi + 'L' + bx3 + ',' + cyHi + '" fill="none" stroke="#030D8C" stroke-width="1.6" stroke-dasharray="7 4"/>');
+        g.push('<line x1="' + (bx0-16) + '" y1="' + cyLo + '" x2="' + (bx0-16) + '" y2="' + cyHi + '" stroke="#0F1A22" stroke-width="1"/>');
+        [[cyLo],[cyHi]].forEach(function(yy){ g.push('<line x1="' + (bx0-19) + '" y1="' + yy[0] + '" x2="' + (bx0-13) + '" y2="' + yy[0] + '" stroke="#0F1A22" stroke-width="1"/>'); });
+        txt(bx0-22, (cyLo+cyHi)/2+4, frac(r.O), "end", true, "#030D8C");
+        txt((bx1+bx2)/2, cyLo+cheekH/2+2, r.angDeg.toFixed(1) + "\u00B0", "middle");
+        var fDim2 = cyLo + cheekH/2 + 16;
+        dimline(bx0, fDim2, bx3, fDim2);
+        txt((bx0+bx3)/2, fDim2+13, frac(r.endLen) + " end to end", "middle", false, "#0F1A22");
+      }
+
+      var vbH = on(6) ? 300 : 150;
+      svgEl.setAttribute("viewBox", "0 30 " + (xEnd + 40) + " " + vbH);
+      svgEl.innerHTML = g.join("");
+  }
+
+  function draw(r){
+    var W = 400, Ht = 260, pad = 34;
+    var g = [], sc, ox, oy;
+    function X(x){ return ox + x*sc; }
+    var square = (off.fit === "twoS" || off.fit === "owl");
+    function duct(d, size){
+      var wpx = Math.max(4, size*sc);
+      g.push('<path d="' + d + '" fill="none" stroke="#9AA7B1" stroke-width="' + wpx + '" stroke-linecap="butt"/>');
+      if(square){
+        g.push('<path d="' + d + '" fill="none" stroke="#F4F6F8" stroke-width="' + Math.max(1,wpx-5) + '" stroke-linecap="butt"/>');
+      } else {
+        g.push('<path d="' + d + '" fill="none" stroke="#C9D1D6" stroke-width="' + Math.max(1,wpx-2.5) + '" stroke-linecap="butt"/>');
+        g.push('<path d="' + d + '" fill="none" stroke="#E9EDF0" stroke-width="' + Math.max(1,wpx*0.30) + '" stroke-linecap="butt"/>');
+      }
+    }
+    function cl(d){ g.push('<path d="' + d + '" fill="none" stroke="#030D8C" stroke-width="1.5" stroke-dasharray="7 4"/>'); }
+    function dot(px,py){ g.push('<circle cx="' + px + '" cy="' + py + '" r="2.7" fill="#FF6A13"/>'); }
+    function txt(px,py,t,anchor,big,color){
+      g.push('<text x="' + px + '" y="' + py + '" text-anchor="' + (anchor||"middle") +
+        '" font-family="monospace" font-size="' + (big?12.5:10.5) + '"' +
+        (big?' font-weight="bold"':'') + ' fill="' + (color||(big?"#B3541E":"#0F1A22")) + '">' + t + '</text>');
+    }
+    function dimline(x1,y1,x2,y2){
+      g.push('<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#0F1A22" stroke-width="1"/>');
+      var vx = (y2-y1), vy = -(x2-x1), L = Math.hypot(vx,vy)||1; vx/=L; vy/=L;
+      [[x1,y1],[x2,y2]].forEach(function(p){
+        g.push('<line x1="' + (p[0]-vx*4) + '" y1="' + (p[1]-vy*4) + '" x2="' + (p[0]+vx*4) + '" y2="' + (p[1]+vy*4) + '" stroke="#0F1A22" stroke-width="1"/>');
+      });
+    }
+
+    if(r.owl){ owlDraw(r, 0, $("svg")); return; }
+
+    var th = r.th, O = r.O;
+    if(off.fit === "wye" || off.fit === "single"){
+      var isW = off.fit === "wye";
+      var mainD = isW ? r.main : Math.max(r.D*1.5, r.D + 4);
+      var fl = isW ? r.fitLen : 0;
+      var Tt = r.tan;
+      var startLen = isW ? r.tapLen : r.stub;
+      var pBx = 0.0, wx;
+      var reach = r.travel*Math.cos(th) + Tt + r.D*1.2;
+      wx = Math.max(isW ? fl*0.75 : r.D, 10);
+      var main = wx + Math.max(reach, isW ? fl*0.75 : r.D) ;
+      var pB = [wx + r.travel*Math.cos(th), -O];
+      var tS = [wx + startLen*Math.cos(th), -startLen*Math.sin(th)];
+      var tE = [pB[0] - Tt*Math.cos(th), pB[1] + Tt*Math.sin(th)];
+      var t4 = [pB[0] + Tt, -O];
+      var endx = Math.max(t4[0] + r.D*1.2, main);
+      var gx = endx;
+      var gyTop = -O - r.D, gyBot = mainD;
+      sc = Math.min((W-2*pad)/gx, (Ht-2*pad)/(gyBot-gyTop));
+      ox = (W - gx*sc)/2; oy = (Ht - (gyBot-gyTop)*sc)/2 - gyTop*sc;
+      function Y(y){ return oy + y*sc; }
+
+      duct("M" + X(0) + "," + Y(0) + "L" + X(main) + "," + Y(0), mainD);
+      if(isW){
+        var fl0 = wx - fl/2, fl1 = wx + fl/2;
+        [fl0,fl1].forEach(function(fx){
+          g.push('<line x1="' + X(fx) + '" y1="' + (Y(0)-mainD/2*sc-4) + '" x2="' + X(fx) + '" y2="' + (Y(0)+mainD/2*sc+4) + '" stroke="#54646F" stroke-width="1"/>');
+        });
+        dimline(X(fl0), Y(0)+mainD/2*sc+10, X(fl1), Y(0)+mainD/2*sc+10);
+        txt((X(fl0)+X(fl1))/2, Y(0)+mainD/2*sc+23, "fitting " + frac(fl));
+      }
+      var rp = r.R*sc;
+      var branchPath = "M" + X(wx) + "," + Y(0) + "L" + X(tE[0]) + "," + Y(tE[1]) +
+                       "A" + rp + "," + rp + " 0 0 1 " + X(t4[0]) + "," + Y(t4[1]) +
+                       "L" + X(endx) + "," + Y(-O);
+      duct(branchPath, r.D);
+      cl(branchPath);
+      cl("M" + X(0) + "," + Y(0) + "L" + X(main) + "," + Y(0));
+      dot(X(tS[0]),Y(tS[1])); dot(X(tE[0]),Y(tE[1]));
+      var midCut = [(tS[0]+tE[0])/2,(tS[1]+tE[1])/2];
+      txt(X(midCut[0])+10, Y(midCut[1])-r.D/2*sc-8, "cut " + frac(r.cut), "start", true);
+      var midStub = [(wx+tS[0])/2, -startLen*Math.sin(th)/2];
+      if(startLen > 0.01) txt(X(midStub[0])+9, Y(midStub[1])+16, (isW?"tap ":"stub ") + frac(startLen), "start");
+      txt(X(tE[0])+12, Y(tE[1])-3, "T " + frac(Tt), "start");
+      g.push('<line x1="' + X(wx) + '" y1="' + Y(0) + '" x2="' + X(wx) + '" y2="' + Y(-O) + '" stroke="#0F1A22" stroke-width="1" stroke-dasharray="3 3"/>');
+      txt(X(wx)-6, (Y(0)+Y(-O))/2+4, frac(O), "end", true, "#030D8C");
+      dimline(X(wx), Y(-O)-r.D/2*sc-9, X(pB[0]), Y(-O)-r.D/2*sc-9);
+      txt((X(wx)+X(pB[0]))/2, Y(-O)-r.D/2*sc-14, "run " + frac(r.run));
+      txt(X(wx)+18, Y(0)-6, r.angDeg + "\u00B0", "start");
+    } else {
+      var R = r.R, T2 = r.tan;
+      var lead = Math.max(T2 + r.D, O*0.3, r.D*1.2);
+      var gx2 = r.run + 2*lead;
+      sc = Math.min((W-2*pad)/Math.max(gx2,0.001), (Ht-2*pad)/(O + r.D*1.6));
+      ox = (W - gx2*sc)/2;
+      var yBase = (Ht + (O + r.D*0.6)*sc)/2;
+      function YY(y){ return yBase - y*sc; }
+      var p1x = lead, p2x = lead + r.run;
+      var q1 = [p1x - T2, 0], q2 = [p1x + T2*Math.cos(th), T2*Math.sin(th)];
+      var q3 = [p2x - T2*Math.cos(th), O - T2*Math.sin(th)], q4 = [p2x + T2, O];
+      var rp2 = R*sc;
+      var d3 = "M" + X(0) + "," + YY(0) + "L" + X(q1[0]) + "," + YY(q1[1]) +
+               "A" + rp2 + "," + rp2 + " 0 0 0 " + X(q2[0]) + "," + YY(q2[1]) +
+               "L" + X(q3[0]) + "," + YY(q3[1]) +
+               "A" + rp2 + "," + rp2 + " 0 0 1 " + X(q4[0]) + "," + YY(q4[1]) +
+               "L" + X(gx2) + "," + YY(O);
+      duct(d3, r.D); cl(d3);
+      [q1,q2,q3,q4].forEach(function(p){ dot(X(p[0]), YY(p[1])); });
+      dimline(X(0)-12, YY(0), X(0)-12, YY(O));
+      txt(X(0)-16, (YY(0)+YY(O))/2+4, frac(O), "end", true, "#030D8C");
+      dimline(X(p1x), YY(0)+r.D/2*sc+13, X(p2x), YY(0)+r.D/2*sc+13);
+      txt((X(p1x)+X(p2x))/2, YY(0)+r.D/2*sc+26, "run " + frac(r.run));
+      var m3 = [(q2[0]+q3[0])/2,(q2[1]+q3[1])/2];
+      txt(X(m3[0])+8, YY(m3[1])-r.D/2*sc-8, "cut " + frac(r.cut), "start", true);
+      txt(X(q1[0])-4, YY(q1[1])-r.D/2*sc-7, "T " + frac(T2), "end");
+      txt(X(p1x)+6, YY(0)+4, r.angDeg + "\u00B0", "start");
+    }
+    var svg = $("svg");
+    svg.setAttribute("viewBox", "-40 -14 " + (W+70) + " " + (Ht+46));
+    svg.innerHTML = g.join("");
+  }
+
+  /* ---------- offset wiring ---------- */
+  function oseg(id,key,after){
+    var gg = $(id);
+    gg.addEventListener("click", function(e){
+      var b = e.target.closest("button"); if(!b) return;
+      Array.prototype.forEach.call(gg.querySelectorAll("button"), function(x){
+        x.setAttribute("aria-pressed", String(x === b));
+      });
+      off[key] = b.dataset.v;
+      if(after) after();
+      offPaint();
+    });
+  }
+  function syncFit(){
+    var f = off.fit;
+    $("oDiaBox").hidden  = !(f === "twoR" || f === "wye" || f === "single");
+    $("oDUnit").textContent = f === "wye" ? "in round main" : "in round";
+    $("oRectBox").hidden = !(f === "twoS" || f === "owl");
+    $("wyeBox").hidden   = f !== "wye";
+    $("stubBox").hidden  = f !== "single";
+    $("ellPanel").hidden = f === "owl";
+    var noRoll = (f === "twoS" || f === "owl");
+    $("segRoll").hidden  = noRoll;
+    if(noRoll) off.roll = "flat";
+    $("flatBox").hidden  = f === "owl" || off.roll !== "flat";
+    $("rollBox").hidden  = f === "owl" || off.roll !== "roll";
+    $("owlBox").hidden   = f !== "owl";
+    if(f === "owl"){
+      $("connBox").hidden = off.method === "endcut";
+      $("methTip").innerHTML = off.method === "endcut"
+        ? "One piece. Trim both ends at the angle, tilt it in. Best for minor offsets."
+        : "Three pieces. Two mirror cuts, flip the middle. Keeps the whole duct axial \u2014 use it when the offset is steep.";
+    }
+    syncFitLen();
+    throatTouched = false;
+    syncThroat();
+  }
+  oseg("fitPick","fit", syncFit);
+  oseg("segLen","lenMode", function(){
+    $("owlLenU").textContent = (off.lenMode === "end") ? "in finished" : "in stock";
+  });
+  oseg("segEnd","endConn");
+  oseg("segMeth","method", function(){
+    $("connBox").hidden = off.method === "endcut";
+    $("methTip").innerHTML = off.method === "endcut"
+      ? "One piece. Trim both ends at the angle, tilt it in. Best for minor offsets."
+      : "Three pieces. Two mirror cuts, flip the middle. Keeps the whole duct axial \u2014 use it when the offset is steep.";
+    tutStep = 1;
+  });
+  oseg("segRoll","roll", function(){
+    $("flatBox").hidden = off.roll !== "flat";
+    $("rollBox").hidden = off.roll !== "roll";
+  });
+
+  var ac = $("angChips");
+  ANGLES.forEach(function(a){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.innerHTML = '<span class="n">' + a + '\u00B0</span>';
+    b.addEventListener("click", function(){ $("oAng").value = a; syncAng(); offPaint(); });
+    ac.appendChild(b);
+  });
+  function syncAng(){
+    var v = parseFloat($("oAng").value);
+    Array.prototype.forEach.call(ac.querySelectorAll("button"), function(b,i){
+      b.setAttribute("aria-pressed", String(ANGLES[i] === v));
+    });
+  }
+  var rc = $("rChips");
+  [["1D","standard square"],["1.5D","standard round"],["2D","long sweep"]].forEach(function(pp,i){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.innerHTML = '<span class="n">' + pp[0] + '</span><span class="t">' + pp[1] + '</span>';
+    b.addEventListener("click", function(){
+      var D = bendDim();
+      if(D === null) return;
+      var ratio = [1.0,1.5,2.0][i];
+      $("oThroat").value = +(ratio*D - D/2).toFixed(3);
+      throatTouched = true;
+      offPaint();
+    });
+    rc.appendChild(b);
+  });
+
+  ["oD","oBend","oOther","oTap","oTapLen","oStub","oAng","oOff","oH","oV","owlO","owlLen","owlEnd"].forEach(function(id){
+    $(id).addEventListener("input", function(){
+      if(id === "oAng") syncAng();
+      if(id === "oTap"){ syncFitLen(); syncThroat(); }
+      if(id === "oD" || id === "oBend") syncThroat();
+      offPaint();
+    });
+  });
+  $("oThroat").addEventListener("input", function(){ throatTouched = true; offPaint(); });
+  $("oFitLen").addEventListener("input", function(){ fitLenTouched = true; offPaint(); });
+
+  /* ---------- nav ---------- */
+  function go(t){
+    Array.prototype.forEach.call($("tabs").querySelectorAll("button"), function(x){
+      x.setAttribute("aria-pressed", String(x.dataset.t === t));
+    });
+    $("paneHome").hidden   = t !== "home";
+    $("headBar").hidden    = t === "home";
+    $("headSize").hidden   = t !== "size";
+    $("paneSize").hidden   = t !== "size";
+    $("paneOffset").hidden = t !== "offset";
+    window.scrollTo(0,0);
+  }
+  $("tabs").addEventListener("click", function(e){
+    var b = e.target.closest("button"); if(b) go(b.dataset.t);
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("#paneHome .card"), function(c){
+    c.addEventListener("click", function(){ go(c.dataset.go); });
+  });
+  $("homeBtn").addEventListener("click", function(){ go("home"); });
+
+  $("tutBtn").addEventListener("click", function(){ tutOn = true; tutStep = 1; offPaint(); });
+  $("tutNext").addEventListener("click", function(){
+    var mx = tutR && tutR.endcut ? 4 : 6;
+    if(tutStep >= mx){ tutOn = false; offPaint(); return; }
+    tutStep++; tutRender();
+  });
+  $("tutPrev").addEventListener("click", function(){ if(tutStep > 1){ tutStep--; tutRender(); } });
+
+  syncAng();
+  syncFit();
+  offPaint();
+  go("home");
+
+})();
+</script>
+</body>
+</html>
