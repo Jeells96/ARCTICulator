@@ -159,6 +159,72 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
 .err{font-family:var(--cond);font-size:17px;font-weight:700;text-transform:uppercase;color:#A8400F;margin:12px 0 0}
 .foot{font-size:13px;color:#4E606D;line-height:1.6;padding:2px}
 .foot b{color:var(--ink)}
+
+/* ============ small screens — tighten so less scrolling ============ */
+@media (max-width:819px){
+  body{font-size:16.5px}
+  .brand h1{font-size:26px;letter-spacing:.07em}
+  .panel{padding:13px 14px;margin-bottom:11px}
+  .head{padding:11px 14px;margin-bottom:12px}
+  .big .cell{padding:9px 11px}
+  .field input{min-height:54px;font-size:22px}
+  .field .unit{padding:0 10px}
+  .seg button{min-height:52px}
+  .chips button{min-height:50px}
+}
+
+/* ============ laptop / desktop — fit the whole tool on screen ============ */
+@media (min-width:820px){
+  body{font-size:16px;padding:0 22px 18px}
+  .wrap{max-width:1120px}
+  .plate{margin:12px 0 9px;padding:9px 18px}
+  .brand img{height:32px}
+  .brand h1{font-size:28px}
+
+  /* readout: one row of four, no longer sticky since it all fits */
+  .head{position:static;margin:0 0 12px;padding:10px 16px;border-radius:3px;
+    box-shadow:0 8px 20px -12px rgba(7,12,43,.7)}
+  .head-in{max-width:none}
+  .big{grid-template-columns:repeat(4,1fr)}
+  .cell{padding:8px 12px}
+  .cell .v{font-size:26px}
+  .hint-h{margin-top:7px}
+
+  /* home tiles side by side */
+  #paneHome{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  #paneHome .card{margin-bottom:0}
+
+  /* flow the tool's panels into balanced columns that fill the width */
+  #paneSize,#paneOffset{column-count:2;column-gap:15px}
+  #paneSize > .panel,
+  #paneOffset > .panel,
+  #paneOffset > .dia,
+  #paneOffset > .foot{
+    break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    margin-bottom:15px;
+  }
+  .panel{padding:10px 13px}
+  .panel > h2{margin-bottom:2px}
+  .panel > h2 + p.sub{margin-bottom:8px}
+  .lab{margin:8px 0 5px;font-size:14px}
+  .field input{min-height:44px;font-size:21px}
+  .seg button{min-height:42px}
+  .chips{margin-bottom:7px;gap:6px}
+  .chips button{min-height:42px}
+
+  /* offset: keep the diagram from dominating a column */
+  #paneOffset .dia svg{max-height:176px}
+  /* offset: compact the fitting picker into two columns */
+  #fitPick{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  #fitPick button{padding:9px 11px}
+  .foot{font-size:12px;line-height:1.5}
+}
+
+/* ============ wide desktop — three columns, nothing off-screen ============ */
+@media (min-width:1000px){
+  .wrap{max-width:1400px}
+  #paneSize,#paneOffset{column-count:3}
+}
 </style>
 </head>
 <body>
