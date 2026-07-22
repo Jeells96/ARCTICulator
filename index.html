@@ -406,11 +406,9 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     <div id="throatBox">
       <label class="lab" for="oThroat" id="throatLbl">Throat radius</label>
       <div class="field"><input id="oThroat" type="number" inputmode="decimal" size="1"><span class="unit">in</span></div>
-      <div class="chips" id="rChips"></div>
       <p class="tip" id="throatTip"></p>
     </div>
-    <label class="lab">Angle</label>
-    <div class="chips" id="angChips"></div>
+    <label class="lab" for="oAng">Angle</label>
     <div class="field"><input id="oAng" type="number" inputmode="decimal" step="1" size="1"><span class="unit">degrees</span></div>
   </section>
 
@@ -825,7 +823,6 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     $("tutNext").textContent = tutStep >= tutMax ? "Done" : "Next ›";
     owlDraw(tutR, tutStep, $("tutSvg"));
   }
-  var ANGLES = [22.5, 30, 45, 60, 90];
   var WYE_LEN = {6:12,8:16,10:20,12:22,14:24,16:28,18:30,20:32,22:36,24:38,26:42,28:44};
   var fitLenTouched = false, throatTouched = false;
 
@@ -869,13 +866,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     }
   }
   function stdCL(){ return (off.fit === "twoS") ? 1.0 : 1.5; }
-  function syncThroat(){
-    if(throatTouched || off.fit === "twoSm") return;
-    var D = bendDim();
-    if(D === null) return;
-    $("oThroat").value = +(stdCL()*D - D/2).toFixed(3);
-    throatTipTxt();
-  }
+  function syncThroat(){ throatTipTxt(); }
   function endTipTxt(){
     var e = num("owlEnd"); if(e === null) e = 1;
     if(off.endConn === "tdc")
@@ -1676,7 +1667,6 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     $("fitLenRow").hidden = f !== "wye";
     $("ellPanel").hidden = f === "owl";
     $("throatLbl").textContent = (f === "twoSm") ? "Throat length" : "Throat radius";
-    $("rChips").hidden = (f === "twoSm");
     var noRoll = (f === "twoS" || f === "twoSm" || f === "owl" || f === "rtap");
     $("segRoll").hidden  = noRoll;
     if(noRoll) off.roll = "flat";
@@ -1726,41 +1716,9 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     $("rollBox").hidden = off.roll !== "roll";
   });
 
-  var ac = $("angChips");
-  ANGLES.forEach(function(a){
-    var b = document.createElement("button");
-    b.type = "button";
-    b.innerHTML = '<span class="n">' + a + '\u00B0</span>';
-    b.addEventListener("click", function(){ $("oAng").value = a; syncAng(); offPaint(); });
-    ac.appendChild(b);
-  });
-  function syncAng(){
-    var v = parseFloat($("oAng").value);
-    Array.prototype.forEach.call(ac.querySelectorAll("button"), function(b,i){
-      b.setAttribute("aria-pressed", String(ANGLES[i] === v));
-    });
-  }
-  var rc = $("rChips");
-  [["1D","standard square"],["1.5D","standard round"],["2D","long sweep"]].forEach(function(pp,i){
-    var b = document.createElement("button");
-    b.type = "button";
-    b.innerHTML = '<span class="n">' + pp[0] + '</span><span class="t">' + pp[1] + '</span>';
-    b.addEventListener("click", function(){
-      var D = bendDim();
-      if(D === null) return;
-      var ratio = [1.0,1.5,2.0][i];
-      $("oThroat").value = +(ratio*D - D/2).toFixed(3);
-      throatTouched = true;
-      offPaint();
-    });
-    rc.appendChild(b);
-  });
-
   ["oD","oBend","oTap","oTapLen","oAng","oOff","oH","oV","owlO","owlLen","owlEnd"].forEach(function(id){
     $(id).addEventListener("input", function(){
-      if(id === "oAng") syncAng();
-      if(id === "oTap"){ syncFitLen(); syncThroat(); }
-      if(id === "oD" || id === "oBend") syncThroat();
+      if(id === "oTap") syncFitLen();
       offPaint();
     });
   });
@@ -1795,7 +1753,6 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
   });
   $("tutPrev").addEventListener("click", function(){ if(tutStep > 1){ tutStep--; tutRender(); } });
 
-  syncAng();
   applyShape();
   syncFit();
   offPaint();
