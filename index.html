@@ -663,21 +663,23 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     var esp = parseFloat($("iEsp").value);
     if(isFinite(esp) && esp > 0){
       var margin = esp - total;
+      // longest straight run this duct + these elbows can hold before the fan runs out
+      var maxLen = (esp - ellLoss)/(r.fr/100);
+      var maxTxt = maxLen > 0 ? "~" + f0(maxLen) + " ft" : "0 ft — the elbows alone use it up";
       $("espBox").hidden = false; $("espTip").hidden = false;
       if(margin >= 0){
         $("espBox").className = "out ok";
         $("espOut").innerHTML = "✓ Holds " + f0(r.q) + " CFM";
         $("espNote").innerHTML = "fan has " + f3(esp) + ", run needs " + f3(total) +
-          " &middot; <b>" + f3(margin) + " to spare</b>";
+          " &middot; <b>" + f3(margin) + " to spare</b> &middot; longest at this size <b>" + maxTxt + "</b>";
       } else {
         // airflow falls until the fan's static matches the run: square law, Q = Qt*sqrt(esp/needed)
         var qAct = r.q * Math.sqrt(esp/total);
         var pAct = Math.round(qAct/r.q*100);
         $("espBox").className = "out bad";
         $("espOut").innerHTML = "✗ You'd get ~" + f0(qAct) + " CFM";
-        $("espNote").innerHTML = "not your " + f0(r.q) + " target (~" + pAct + "%) &middot; run needs " +
-          f3(total) + ", fan has " + f3(esp) + " &middot; short " + f3(-margin) +
-          " &middot; upsize the duct or add fan";
+        $("espNote").innerHTML = "~" + pAct + "% of your " + f0(r.q) + " target &middot; this size tops out at <b>" +
+          maxTxt + "</b> (you have " + f0(L) + ") &middot; upsize the duct or add fan";
       }
     } else {
       $("espBox").hidden = true; $("espTip").hidden = true;
