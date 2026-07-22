@@ -160,6 +160,11 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
 .out{background:#fff;border:2px solid var(--rule);border-left:5px solid var(--hivis);border-radius:3px;padding:13px 14px;margin-top:12px}
 .out .r{font-family:var(--mono);font-size:22px;font-weight:600;color:var(--ink)}
 .out .s{font-family:var(--mono);font-size:13px;color:var(--ink-soft);margin-top:5px}
+.out.ok{border-left-color:#1E7A3D;background:#F0FAF3}
+.out.ok .r{color:#1E7A3D}
+.out.bad{border-left-color:#B3261E;background:#FDF3F2}
+.out.bad .r{color:#B3261E}
+.out#espBox{margin-top:8px}
 .err{font-family:var(--cond);font-size:17px;font-weight:700;text-transform:uppercase;color:#A8400F;margin:12px 0 0}
 .foot{font-size:13px;color:#4E606D;line-height:1.6;padding:2px}
 .foot b{color:var(--ink)}
@@ -340,7 +345,11 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       <div class="field"><select id="iEll90" aria-label="Number of 90 degree elbows"></select><span class="unit">&times; 90&deg;</span></div>
       <div class="field"><select id="iEll45" aria-label="Number of 45 degree elbows"></select><span class="unit">&times; 45&deg;</span></div>
     </div>
+    <label class="lab" for="iEsp">Fan available static &mdash; optional</label>
+    <div class="field"><input id="iEsp" type="number" inputmode="decimal" step="0.05" size="1" placeholder="off the unit's rating"><span class="unit">in wg</span></div>
     <div class="out"><div class="r" id="spOut">&mdash;</div><div class="s" id="spNote"></div></div>
+    <div class="out" id="espBox" hidden><div class="r" id="espOut">&mdash;</div><div class="s" id="espNote"></div></div>
+    <p class="tip" id="espTip" hidden>Enter what the unit can actually push at your target CFM (its external static rating). The check assumes that CFM &mdash; if the run needs more static than the fan has, the air won't hold and CFM falls off.</p>
   </section>
 
   <section class="panel">
@@ -598,6 +607,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       ["vA","vB","vC","vD"].forEach(function(i){ $(i).innerHTML = "&mdash;"; });
       $("cvOut").innerHTML = "&mdash;"; $("cvNote").textContent = ""; $("cvSrc").innerHTML = "";
       $("spOut").innerHTML = "&mdash;"; $("spNote").textContent = "";
+      $("espBox").hidden = true; $("espTip").hidden = true;
       return;
     }
 
@@ -629,6 +639,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     if(L === null){
       $("spOut").innerHTML = "&mdash;";
       $("spNote").textContent = "Type your run length to see the total.";
+      $("espBox").hidden = true; $("espTip").hidden = true;
       return;
     }
     var n90 = parseInt($("iEll90").value,10) || 0;
@@ -647,6 +658,26 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       note += " + " + f3(ellLoss) + " for " + bits.join(" & ") + " (≈ " + f0(eqLen) + " ft of duct)";
     }
     $("spNote").innerHTML = note;
+
+    // does the fan have enough static to hold this CFM over the run?
+    var esp = parseFloat($("iEsp").value);
+    if(isFinite(esp) && esp > 0){
+      var margin = esp - total;
+      $("espBox").hidden = false; $("espTip").hidden = false;
+      if(margin >= 0){
+        $("espBox").className = "out ok";
+        $("espOut").innerHTML = "✓ Holds " + f0(r.q) + " CFM";
+        $("espNote").innerHTML = "fan has " + f3(esp) + ", run needs " + f3(total) +
+          " &middot; <b>" + f3(margin) + " to spare</b>";
+      } else {
+        $("espBox").className = "out bad";
+        $("espOut").innerHTML = "✗ Won't hold " + f0(r.q) + " CFM";
+        $("espNote").innerHTML = "run needs " + f3(total) + ", fan has only " + f3(esp) +
+          " &middot; <b>short " + f3(-margin) + "</b> &middot; upsize the duct or add fan";
+      }
+    } else {
+      $("espBox").hidden = true; $("espTip").hidden = true;
+    }
   }
 
   /* ---------- what the material costs you ---------- */
@@ -751,7 +782,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     s.innerHTML = html;
   });
 
-  ["iFr","iVel","iCfm","iDia","iW","iH","iSide","iLen","iEll90","iEll45"].forEach(function(id){
+  ["iFr","iVel","iCfm","iDia","iW","iH","iSide","iLen","iEll90","iEll45","iEsp"].forEach(function(id){
     $(id).addEventListener("input", function(){ if(id === "iVel") syncChips(); paint(); });
   });
 
