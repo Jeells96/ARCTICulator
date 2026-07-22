@@ -373,7 +373,8 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       <button type="button" data-v="single" data-shape="round" aria-pressed="false"><span class="fT">Single elbow</span><span class="fS">One end already at the angle &mdash; a tap, a collar, a unit connection.</span></button>
       <button type="button" data-v="wye" data-shape="round" aria-pressed="false"><span class="fT">Wye branch</span><span class="fS">Tap off the main, ell back to parallel.</span></button>
       <button type="button" data-v="rtap" data-shape="round" aria-pressed="false"><span class="fT">Rolled tap</span><span class="fS">Tap off a round main with an ell &mdash; cut joint, ell, offset length, arc.</span></button>
-      <button type="button" data-v="twoS" data-shape="square" aria-pressed="false"><span class="fT">Two elbows</span><span class="fS">S-offset. Radius-throat ells &mdash; throat 0 = mitered.</span></button>
+      <button type="button" data-v="twoS" data-shape="square" aria-pressed="false"><span class="fT">Two elbows &middot; radius</span><span class="fS">S-offset in rectangular. Radius-throat ells.</span></button>
+      <button type="button" data-v="twoSm" data-shape="square" aria-pressed="false"><span class="fT">Two elbows &middot; straight</span><span class="fS">S-offset in rectangular. Mitered ells, throat length.</span></button>
       <button type="button" data-v="owl" data-shape="square" aria-pressed="false"><span class="fT">OWL &middot; cut &amp; flip</span><span class="fS">Field offset out of straight duct. Two cuts, flip the middle.</span></button>
     </div>
   </section>
@@ -383,10 +384,9 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
   <section class="panel" id="ductPanel">
     <h2>Duct</h2>
     <div class="field" id="oDiaBox"><input id="oD" type="number" inputmode="decimal" size="1"><span class="unit" id="oDUnit">in round</span></div>
-    <div class="two" id="oRectBox" hidden>
+    <div id="oRectBox" hidden>
+      <label class="lab" for="oBend">Duct width</label>
       <div class="field"><input id="oBend" type="number" inputmode="decimal" size="1"><span class="unit">in the bend</span></div>
-      <div class="x">&times;</div>
-      <div class="field"><input id="oOther" type="number" inputmode="decimal" size="1"><span class="unit">the other</span></div>
     </div>
     <div id="wyeBox" hidden>
       <label class="lab" for="oTap">Tap size</label>
@@ -404,7 +404,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
   <section class="panel" id="ellPanel">
     <h2>Elbow</h2>
     <div id="throatBox">
-      <label class="lab" for="oThroat">Throat radius</label>
+      <label class="lab" for="oThroat" id="throatLbl">Throat radius</label>
       <div class="field"><input id="oThroat" type="number" inputmode="decimal" size="1"><span class="unit">in</span></div>
       <div class="chips" id="rChips"></div>
       <p class="tip" id="throatTip"></p>
@@ -856,7 +856,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     return WYE_LEN[ks[0]];
   }
   function bendDim(){
-    if(off.fit === "twoS" || off.fit === "owl") return num("oBend");
+    if(off.fit === "twoS" || off.fit === "twoSm" || off.fit === "owl") return num("oBend");
     if(off.fit === "wye" || off.fit === "rtap") return num("oTap");
     return num("oD");
   }
@@ -870,7 +870,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
   }
   function stdCL(){ return (off.fit === "twoS") ? 1.0 : 1.5; }
   function syncThroat(){
-    if(throatTouched) return;
+    if(throatTouched || off.fit === "twoSm") return;
     var D = bendDim();
     if(D === null) return;
     $("oThroat").value = +(stdCL()*D - D/2).toFixed(3);
@@ -894,6 +894,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       $("owlLenTip").innerHTML = "To finish at " + frac(Ln) + ", start with a <b>" + frac(s.stock) + "</b> blank.";
   }
   function throatTipTxt(){
+    if(off.fit === "twoSm"){ $("throatTip").innerHTML = "Straight throat on a mitered ell — length, not radius."; return; }
     var D = bendDim(), t = parseFloat($("oThroat").value);
     if(D === null || !isFinite(t)){ $("throatTip").textContent = ""; return; }
     var cl = t + D/2;
@@ -984,11 +985,17 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     var Db = bendDim();
     if(Db === null) return { err:"Enter the duct size above zero." };
     var t0 = parseFloat($("oThroat").value);
-    if(!isFinite(t0) || t0 < 0) return { err:"Enter a throat radius." };
-    var R = t0 + Db/2, tn = R*Math.tan(th/2);
+    if(!isFinite(t0) || t0 < 0) return { err: off.fit === "twoSm" ? "Enter a throat length." : "Enter a throat radius." };
+    var R, tn;
+    if(off.fit === "twoSm"){
+      tn = (Db/2)*Math.tan(th/2) + t0;   // mitered ell setback: half-width tangent + straight throat length
+      R = 0;
+    } else {
+      R = t0 + Db/2; tn = R*Math.tan(th/2);
+    }
     base.D = Db; base.R = R; base.tan = tn; base.arc = R*th;
 
-    if(off.fit === "twoR" || off.fit === "twoS"){
+    if(off.fit === "twoR" || off.fit === "twoS" || off.fit === "twoSm"){
       base.cut = travel - 2*tn;
       base.overall = run + 2*tn;
       return base;
@@ -1173,7 +1180,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     $("oCut").textContent = frac(r.cut);
     $("oCutD").textContent = r.cut.toFixed(3) + '"';
     var list = [["Travel", frac(r.travel)]];
-    if(off.fit === "twoR" || off.fit === "twoS"){
+    if(off.fit === "twoR"){
       list.push(["Ell tangent \u00D72", frac(r.tan) + " each"]);
       list.push(["Ell arc (CL)", frac(r.arc)]);
       list.push(["Run gained", frac(r.run)]);
@@ -1181,6 +1188,18 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       $("oHint").innerHTML = r.cut < 0
         ? "\u26A0 Negative \u2014 the ells overlap. Tighten the throat or open the angle."
         : "Cut is the straight piece between the two ells. Centerline \u2014 add seam and joint allowance.";
+    } else if(off.fit === "twoS" || off.fit === "twoSm"){
+      $("cutTitle").textContent = off.fit === "twoSm" ? "Straight elbows" : "Radius elbows";
+      $("oCutD").textContent = "cut joint \u00B7 " + r.cut.toFixed(3) + '"';
+      list = [
+        ["Ell CL length", frac(r.tan) + " \u00B7 " + r.tan.toFixed(3)],
+        ["Offset length", frac(r.overall) + " \u00B7 " + r.overall.toFixed(3)],
+        ["Travel, CL", frac(r.travel)]
+      ];
+      if(off.fit === "twoS") list.push(["Ell arc (CL)", frac(r.arc)]);
+      $("oHint").innerHTML = r.cut < 0
+        ? "\u26A0 Negative \u2014 the ells overlap. " + (off.fit === "twoSm" ? "Shorten the throat length" : "Tighten the throat") + " or open the angle."
+        : "Cut joint is the straight between the two ells. Centerline \u2014 add seam and joint allowance.";
     } else if(off.fit === "single"){
       list.push(["Ell tangent", frac(r.tan)]);
       list.push(["Ell arc (CL)", frac(r.arc)]);
@@ -1468,7 +1487,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     var W = 400, Ht = 260, pad = 34;
     var g = [], sc, ox, oy;
     function X(x){ return ox + x*sc; }
-    var square = (off.fit === "twoS" || off.fit === "owl");
+    var square = (off.fit === "twoS" || off.fit === "twoSm" || off.fit === "owl");
     function duct(d, size){
       var wpx = Math.max(4, size*sc);
       g.push('<path d="' + d + '" fill="none" stroke="#9AA7B1" stroke-width="' + wpx + '" stroke-linecap="butt"/>');
@@ -1596,11 +1615,13 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     var f = off.fit;
     $("oDiaBox").hidden  = !(f === "twoR" || f === "wye" || f === "single" || f === "rtap");
     $("oDUnit").textContent = (f === "wye" || f === "rtap") ? "in round main" : "in round";
-    $("oRectBox").hidden = !(f === "twoS" || f === "owl");
+    $("oRectBox").hidden = !(f === "twoS" || f === "twoSm" || f === "owl");
     $("wyeBox").hidden   = !(f === "wye" || f === "rtap");
     $("fitLenRow").hidden = f !== "wye";
     $("ellPanel").hidden = f === "owl";
-    var noRoll = (f === "twoS" || f === "owl" || f === "rtap");
+    $("throatLbl").textContent = (f === "twoSm") ? "Throat length" : "Throat radius";
+    $("rChips").hidden = (f === "twoSm");
+    var noRoll = (f === "twoS" || f === "twoSm" || f === "owl" || f === "rtap");
     $("segRoll").hidden  = noRoll;
     if(noRoll) off.roll = "flat";
     $("flatBox").hidden  = f === "owl" || off.roll !== "flat";
@@ -1679,7 +1700,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     rc.appendChild(b);
   });
 
-  ["oD","oBend","oOther","oTap","oTapLen","oAng","oOff","oH","oV","owlO","owlLen","owlEnd"].forEach(function(id){
+  ["oD","oBend","oTap","oTapLen","oAng","oOff","oH","oV","owlO","owlLen","owlEnd"].forEach(function(id){
     $(id).addEventListener("input", function(){
       if(id === "oAng") syncAng();
       if(id === "oTap"){ syncFitLen(); syncThroat(); }
