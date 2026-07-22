@@ -297,14 +297,14 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
 
     <div id="frBox">
       <label class="lab" for="iFr">Friction rate</label>
-      <div class="field"><input id="iFr" type="number" inputmode="decimal" step="0.01" size="1" value="0.08"><span class="unit">in wg /100 ft</span></div>
+      <div class="field"><input id="iFr" type="number" inputmode="decimal" step="0.01" size="1"><span class="unit">in wg /100 ft</span></div>
     </div>
 
     <div id="velBox" hidden>
       <label class="lab">Common settings</label>
       <div class="chips" id="velChips"></div>
       <label class="lab" for="iVel">Or type it</label>
-      <div class="field"><input id="iVel" type="number" inputmode="numeric" step="50" size="1" value="900"><span class="unit">FPM</span></div>
+      <div class="field"><input id="iVel" type="number" inputmode="numeric" step="50" size="1"><span class="unit">FPM</span></div>
     </div>
   </section>
 
@@ -314,17 +314,17 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       <button type="button" data-v="cfm" aria-pressed="true">CFM</button>
       <button type="button" data-v="dia" aria-pressed="false">Duct size</button>
     </div>
-    <div class="field stack" id="cfmBox"><input id="iCfm" type="number" inputmode="numeric" step="25" size="1" value="800"><span class="unit">CFM</span></div>
+    <div class="field stack" id="cfmBox"><input id="iCfm" type="number" inputmode="numeric" step="25" size="1"><span class="unit">CFM</span></div>
     <div id="sizeBox" hidden>
       <div class="seg sub" id="segShape" role="group" aria-label="Round or square">
         <button type="button" data-v="round" aria-pressed="true">Round</button>
         <button type="button" data-v="square" aria-pressed="false">Square</button>
       </div>
-      <div class="field stack" id="diaBox"><input id="iDia" type="number" inputmode="decimal" step="1" size="1" value="12"><span class="unit">in round</span></div>
+      <div class="field stack" id="diaBox"><input id="iDia" type="number" inputmode="decimal" step="1" size="1"><span class="unit">in round</span></div>
       <div class="two" id="rectBox" hidden>
-        <div class="field"><input id="iW" type="number" inputmode="decimal" size="1" value="20"><span class="unit">in</span></div>
+        <div class="field"><input id="iW" type="number" inputmode="decimal" size="1"><span class="unit">in</span></div>
         <div class="x">&times;</div>
-        <div class="field"><input id="iH" type="number" inputmode="decimal" size="1" value="10"><span class="unit">in</span></div>
+        <div class="field"><input id="iH" type="number" inputmode="decimal" size="1"><span class="unit">in</span></div>
       </div>
     </div>
     <p class="err" id="err" hidden></p>
@@ -353,7 +353,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     <div class="src" id="cvSrc"></div>
     <div id="cvIn">
       <label class="lab" for="iSide">Space you've got</label>
-      <div class="field"><input id="iSide" type="number" inputmode="decimal" size="1" value="10"><span class="unit">in side</span></div>
+      <div class="field"><input id="iSide" type="number" inputmode="decimal" size="1"><span class="unit">in side</span></div>
     </div>
     <div class="out"><div class="r" id="cvOut">&mdash;</div><div class="s" id="cvNote"></div></div>
   </section>
@@ -377,25 +377,20 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
 
   <section class="panel" id="ductPanel">
     <h2>Duct</h2>
-    <div class="field" id="oDiaBox"><input id="oD" type="number" inputmode="decimal" size="1" value="12"><span class="unit" id="oDUnit">in round</span></div>
+    <div class="field" id="oDiaBox"><input id="oD" type="number" inputmode="decimal" size="1"><span class="unit" id="oDUnit">in round</span></div>
     <div class="two" id="oRectBox" hidden>
-      <div class="field"><input id="oBend" type="number" inputmode="decimal" size="1" value="12"><span class="unit">in the bend</span></div>
+      <div class="field"><input id="oBend" type="number" inputmode="decimal" size="1"><span class="unit">in the bend</span></div>
       <div class="x">&times;</div>
-      <div class="field"><input id="oOther" type="number" inputmode="decimal" size="1" value="20"><span class="unit">the other</span></div>
+      <div class="field"><input id="oOther" type="number" inputmode="decimal" size="1"><span class="unit">the other</span></div>
     </div>
     <div id="wyeBox" hidden>
       <label class="lab" for="oTap">Tap size</label>
-      <div class="field"><input id="oTap" type="number" inputmode="decimal" size="1" value="8"><span class="unit">in round</span></div>
+      <div class="field"><input id="oTap" type="number" inputmode="decimal" size="1"><span class="unit">in round</span></div>
       <label class="lab" for="oTapLen">Tap length</label>
-      <div class="field"><input id="oTapLen" type="number" inputmode="decimal" size="1" value="6"><span class="unit">in &middot; standard 6</span></div>
+      <div class="field"><input id="oTapLen" type="number" inputmode="decimal" size="1"><span class="unit">in &middot; standard 6</span></div>
       <label class="lab" for="oFitLen">Fitting length</label>
       <div class="field"><input id="oFitLen" type="number" inputmode="decimal" size="1"><span class="unit">in on the main</span></div>
       <p class="tip" id="fitLenTip"></p>
-    </div>
-    <div id="stubBox" hidden>
-      <label class="lab" for="oStub">Connection stub</label>
-      <div class="field"><input id="oStub" type="number" inputmode="decimal" size="1" value="2"><span class="unit">in past the angle</span></div>
-      <p class="tip">How much straight sticks out of whatever you're landing on &mdash; a tap collar, a unit flange. Zero if you're cutting right to it.</p>
     </div>
   </section>
 
@@ -409,7 +404,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     </div>
     <label class="lab">Angle</label>
     <div class="chips" id="angChips"></div>
-    <div class="field"><input id="oAng" type="number" inputmode="decimal" step="1" size="1" value="45"><span class="unit">degrees</span></div>
+    <div class="field"><input id="oAng" type="number" inputmode="decimal" step="1" size="1"><span class="unit">degrees</span></div>
   </section>
 
   <section class="panel" id="offPanel">
@@ -418,12 +413,12 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       <button type="button" data-v="flat" aria-pressed="true">Straight</button>
       <button type="button" data-v="roll" aria-pressed="false">Rolling</button>
     </div>
-    <div class="field stack" id="flatBox"><input id="oOff" type="number" inputmode="decimal" size="1" value="25"><span class="unit">in offset</span></div>
+    <div class="field stack" id="flatBox"><input id="oOff" type="number" inputmode="decimal" size="1"><span class="unit">in offset</span></div>
     <div id="rollBox" hidden>
       <label class="lab" for="oH">Sideways</label>
-      <div class="field"><input id="oH" type="number" inputmode="decimal" size="1" value="20"><span class="unit">in</span></div>
+      <div class="field"><input id="oH" type="number" inputmode="decimal" size="1"><span class="unit">in</span></div>
       <label class="lab" for="oV">Up or down</label>
-      <div class="field"><input id="oV" type="number" inputmode="decimal" size="1" value="15"><span class="unit">in</span></div>
+      <div class="field"><input id="oV" type="number" inputmode="decimal" size="1"><span class="unit">in</span></div>
     </div>
     <div id="owlBox" hidden>
       <label class="lab">Method</label>
@@ -433,13 +428,13 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       </div>
       <p class="tip" id="methTip"></p>
       <label class="lab" for="owlO">Offset needed</label>
-      <div class="field"><input id="owlO" type="number" inputmode="decimal" size="1" value="8"><span class="unit">in</span></div>
+      <div class="field"><input id="owlO" type="number" inputmode="decimal" size="1"><span class="unit">in</span></div>
       <label class="lab">Length I'm working from</label>
       <div class="seg" id="segLen" role="group" aria-label="Which length">
         <button type="button" data-v="stock" aria-pressed="true">I have stock</button>
         <button type="button" data-v="end" aria-pressed="false">I need finished</button>
       </div>
-      <div class="field stack"><input id="owlLen" type="number" inputmode="decimal" size="1" value="96"><span class="unit" id="owlLenU">in stock</span></div>
+      <div class="field stack"><input id="owlLen" type="number" inputmode="decimal" size="1"><span class="unit" id="owlLenU">in stock</span></div>
       <p class="tip" id="owlLenTip"></p>
       <div id="connBox">
       <label class="lab">End connection</label>
@@ -448,7 +443,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
         <button type="button" data-v="tdc" aria-pressed="false">TDC / Ductmate</button>
       </div>
       <label class="lab" for="owlEnd">Straight each end</label>
-      <div class="field"><input id="owlEnd" type="number" inputmode="decimal" step="0.25" size="1" value="1"><span class="unit">in for the connection</span></div>
+      <div class="field"><input id="owlEnd" type="number" inputmode="decimal" step="0.25" size="1"><span class="unit">in for the connection</span></div>
       <p class="tip" id="endTip"></p>
       </div>
     </div>
@@ -971,9 +966,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       return base;
     }
     if(off.fit === "single"){
-      var stub = num("oStub"); if(stub === null) stub = 0;
-      base.stub = stub;
-      base.cut = travel - tn - stub;
+      base.cut = travel - tn;
       base.overall = run + tn;
       return base;
     }
@@ -1143,11 +1136,10 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
         : "Cut is the straight piece between the two ells. Centerline \u2014 add seam and joint allowance.";
     } else if(off.fit === "single"){
       list.push(["Ell tangent", frac(r.tan)]);
-      list.push(["Connection stub", frac(r.stub)]);
       list.push(["Ell arc (CL)", frac(r.arc)]);
       list.push(["Run gained", frac(r.run)]);
       $("oHint").innerHTML = r.cut < 0
-        ? "\u26A0 Negative \u2014 no room between the ell and the connection. Open the angle or lose the stub."
+        ? "\u26A0 Negative \u2014 no room between the ell and the connection. Open the angle."
         : "Cut is the straight between the connection and the ell.";
     } else {
       list.push(["Tap stub", frac(r.tapLen)]);
@@ -1404,7 +1396,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       var mainD = isW ? r.main : Math.max(r.D*1.5, r.D + 4);
       var fl = isW ? r.fitLen : 0;
       var Tt = r.tan;
-      var startLen = isW ? r.tapLen : r.stub;
+      var startLen = isW ? r.tapLen : 0;
       var pBx = 0.0, wx;
       var reach = r.travel*Math.cos(th) + Tt + r.D*1.2;
       wx = Math.max(isW ? fl*0.75 : r.D, 10);
@@ -1499,7 +1491,6 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     $("oDUnit").textContent = f === "wye" ? "in round main" : "in round";
     $("oRectBox").hidden = !(f === "twoS" || f === "owl");
     $("wyeBox").hidden   = f !== "wye";
-    $("stubBox").hidden  = f !== "single";
     $("ellPanel").hidden = f === "owl";
     var noRoll = (f === "twoS" || f === "owl");
     $("segRoll").hidden  = noRoll;
@@ -1564,7 +1555,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     rc.appendChild(b);
   });
 
-  ["oD","oBend","oOther","oTap","oTapLen","oStub","oAng","oOff","oH","oV","owlO","owlLen","owlEnd"].forEach(function(id){
+  ["oD","oBend","oOther","oTap","oTapLen","oAng","oOff","oH","oV","owlO","owlLen","owlEnd"].forEach(function(id){
     $(id).addEventListener("input", function(){
       if(id === "oAng") syncAng();
       if(id === "oTap"){ syncFitLen(); syncThroat(); }
