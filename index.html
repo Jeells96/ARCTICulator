@@ -349,7 +349,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     <div class="field"><input id="iEsp" type="number" inputmode="decimal" step="0.05" size="1" placeholder="off the unit's rating"><span class="unit">in wg</span></div>
     <div class="out"><div class="r" id="spOut">&mdash;</div><div class="s" id="spNote"></div></div>
     <div class="out" id="espBox" hidden><div class="r" id="espOut">&mdash;</div><div class="s" id="espNote"></div></div>
-    <p class="tip" id="espTip" hidden>Enter what the unit can actually push at your target CFM (its external static rating). The check assumes that CFM &mdash; if the run needs more static than the fan has, the air won't hold and CFM falls off.</p>
+    <p class="tip" id="espTip" hidden>Enter what the unit can actually push (its external static rating). If the run needs more than the fan has, the air won't hold &mdash; the CFM shown is where flow settles on the system curve (square law, a conservative floor; a real fan curve usually does a touch better). Upsizing the duct is what gets you back to target.</p>
   </section>
 
   <section class="panel">
@@ -670,10 +670,14 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
         $("espNote").innerHTML = "fan has " + f3(esp) + ", run needs " + f3(total) +
           " &middot; <b>" + f3(margin) + " to spare</b>";
       } else {
+        // airflow falls until the fan's static matches the run: square law, Q = Qt*sqrt(esp/needed)
+        var qAct = r.q * Math.sqrt(esp/total);
+        var pAct = Math.round(qAct/r.q*100);
         $("espBox").className = "out bad";
-        $("espOut").innerHTML = "✗ Won't hold " + f0(r.q) + " CFM";
-        $("espNote").innerHTML = "run needs " + f3(total) + ", fan has only " + f3(esp) +
-          " &middot; <b>short " + f3(-margin) + "</b> &middot; upsize the duct or add fan";
+        $("espOut").innerHTML = "✗ You'd get ~" + f0(qAct) + " CFM";
+        $("espNote").innerHTML = "not your " + f0(r.q) + " target (~" + pAct + "%) &middot; run needs " +
+          f3(total) + ", fan has " + f3(esp) + " &middot; short " + f3(-margin) +
+          " &middot; upsize the duct or add fan";
       }
     } else {
       $("espBox").hidden = true; $("espTip").hidden = true;
