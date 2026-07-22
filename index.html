@@ -663,10 +663,14 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       var maxTxt = maxLen > 0 ? "~" + f0(maxLen) + " ft" : "0 ft — the elbows alone use it up";
       $("espBox").hidden = false; $("espTip").hidden = false;
       if(margin >= 0){
+        // spare static means the fan rides up to a higher flow on this easier run
+        var qCap = r.q * Math.sqrt(esp/total);
+        var capTxt = margin > 1e-6 ? " &middot; could push <b>~" + f0(qCap) + " CFM</b>" : "";
         $("espBox").className = "out ok";
         $("espOut").innerHTML = "✓ Holds " + f0(r.q) + " CFM";
         $("espNote").innerHTML = "fan has " + f3(esp) + ", run needs " + f3(total) +
-          " &middot; <b>" + f3(margin) + " to spare</b> &middot; longest at this size <b>" + maxTxt + "</b>";
+          " &middot; <b>" + f3(margin) + " to spare</b>" + capTxt +
+          " &middot; longest at this size <b>" + maxTxt + "</b>";
       } else {
         // airflow falls until the fan's static matches the run: square law, Q = Qt*sqrt(esp/needed)
         var qAct = r.q * Math.sqrt(esp/total);
