@@ -373,6 +373,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       <button type="button" data-v="single" data-shape="round" aria-pressed="false"><span class="fT">Single elbow</span><span class="fS">One end already at the angle &mdash; a tap, a collar, a unit connection.</span></button>
       <button type="button" data-v="wye" data-shape="round" aria-pressed="false"><span class="fT">Wye branch</span><span class="fS">Tap off the main, ell back to parallel.</span></button>
       <button type="button" data-v="rtap" data-shape="round" aria-pressed="false"><span class="fT">Rolled tap</span><span class="fS">Tap off a round main with an ell &mdash; cut joint, ell, offset length, arc.</span></button>
+      <button type="button" data-v="rninety" data-shape="round" aria-pressed="false"><span class="fT">Rolling ninety</span><span class="fS">Rolling offset in a single pipe &mdash; pipe, throat, angle, offset.</span></button>
       <button type="button" data-v="twoS" data-shape="square" aria-pressed="false"><span class="fT">Two elbows &middot; radius</span><span class="fS">S-offset in rectangular. Radius-throat ells.</span></button>
       <button type="button" data-v="twoSm" data-shape="square" aria-pressed="false"><span class="fT">Two elbows &middot; straight</span><span class="fS">S-offset in rectangular. Mitered ells, throat length.</span></button>
       <button type="button" data-v="owl" data-shape="square" aria-pressed="false"><span class="fT">OWL &middot; cut &amp; flip</span><span class="fS">Field offset out of straight duct. Two cuts, flip the middle.</span></button>
@@ -955,6 +956,24 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
                ellArc:  Rell*rth };
     }
 
+    if(off.fit === "rninety"){
+      var nD = num("oD"); if(nD === null) return { err:"Enter the pipe diameter." };
+      var nThr = parseFloat($("oThroat").value);
+      if(!isFinite(nThr) || nThr < 0) return { err:"Enter a throat radius." };
+      var nAng = num("oAng"); if(nAng === null || nAng >= 180) return { err:"Angle has to be between 0 and 180." };
+      var nO = num("oOff"); if(nO === null) return { err:"Enter the offset above zero." };
+      var nth = nAng*Math.PI/180, nR = nThr + nD/2;
+      var nTan = nR*Math.tan(nth/2);
+      var nTravel = nO/Math.sin(nth);
+      var nRun = Math.abs(nAng - 90) < 1e-9 ? 0 : nO/Math.tan(nth);
+      return { rninety:true, D:nD, throat:nThr, R:nR, angDeg:nAng, th:nth, O:nO,
+               travel:nTravel, tan:nTan, run:nRun,
+               cutJoint: nTravel - nR - nTan,
+               ellCL:   nTan,
+               offLen:  nRun + nTan,
+               arcMain: (nD/2)*nth };
+    }
+
     var angDeg = num("oAng");
     if(angDeg === null || angDeg >= 180) return { err:"Angle has to be between 0 and 180." };
     var th = angDeg*Math.PI/180;
@@ -1163,6 +1182,24 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       $("oHint").innerHTML = r.cutJoint < 0
         ? "⚠ Negative — the tap and ell eat up the offset. Open the angle, shorten the tap, or tighten the throat."
         : "Cut joint is the straight between the tap and the ell. Travel runs from the main centerline — the first <b>" + frac(r.Rmain) + "</b> is inside the main.";
+      draw(r);
+      return;
+    }
+
+    if(r.rninety){
+      $("cutTitle").textContent = "Rolling ninety";
+      $("oCut").textContent = frac(r.cutJoint);
+      $("oCutD").textContent = "cut joint · " + r.cutJoint.toFixed(3) + '"';
+      rows([
+        ["Ell CL length", frac(r.ellCL) + " · " + r.ellCL.toFixed(3)],
+        ["Offset length", frac(r.offLen) + " · " + r.offLen.toFixed(3)],
+        ["Arc length", frac(r.arcMain) + " · " + r.arcMain.toFixed(3)],
+        ["Travel, CL", frac(r.travel)]
+      ]);
+      $("oRoll").hidden = true;
+      $("oHint").innerHTML = r.cutJoint < 0
+        ? "⚠ Negative — the ell eats up the offset. Open the angle or tighten the throat."
+        : "Rolling offset in one pipe. Cut joint is the straight before the ell; add seam and joint allowance.";
       draw(r);
       return;
     }
@@ -1474,6 +1511,32 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
     svgEl.innerHTML = g.join("");
   }
 
+  // rolling ninety — single pipe with an ell, the offset dim, and the cut
+  function rninetyDraw(r, svgEl){
+    var g=[];
+    function txt(px,py,t,anchor,big,color){ g.push('<text x="'+px+'" y="'+py+'" text-anchor="'+(anchor||"middle")+
+      '" font-family="monospace" font-size="'+(big?12.5:10.5)+'"'+(big?' font-weight="bold"':'')+
+      ' fill="'+(color||(big?"#B3541E":"#0F1A22"))+'">'+t+'</text>'); }
+    function dimline(x1,y1,x2,y2){ g.push('<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="#0F1A22" stroke-width="1"/>');
+      var vx=(y2-y1),vy=-(x2-x1),L=Math.hypot(vx,vy)||1;vx/=L;vy/=L;
+      [[x1,y1],[x2,y2]].forEach(function(p){g.push('<line x1="'+(p[0]-vx*4)+'" y1="'+(p[1]-vy*4)+'" x2="'+(p[0]+vx*4)+'" y2="'+(p[1]+vy*4)+'" stroke="#0F1A22" stroke-width="1"/>');}); }
+    var wpx=30, a=Math.max(12,Math.min(60,r.angDeg))*Math.PI/180, dx=Math.cos(a), dy=Math.sin(a);
+    var x0=52, y0=92, p1=[x0+86,y0], p2=[p1[0]+70*dx, p1[1]+70*dy], p3=[p2[0]+50, p2[1]];
+    var path="M"+x0+","+y0+"L"+p2[0]+","+p2[1]+"L"+p3[0]+","+p3[1];
+    g.push('<path d="'+path+'" fill="none" stroke="#9AA7B1" stroke-width="'+wpx+'" stroke-linecap="butt" stroke-linejoin="round"/>');
+    g.push('<path d="'+path+'" fill="none" stroke="#C9D1D6" stroke-width="'+(wpx-3)+'" stroke-linecap="butt" stroke-linejoin="round"/>');
+    g.push('<path d="'+path+'" fill="none" stroke="#030D8C" stroke-width="1.4" stroke-dasharray="6 4"/>');
+    [p1,p2].forEach(function(p){ g.push('<circle cx="'+p[0]+'" cy="'+p[1]+'" r="2.6" fill="#FF6A13"/>'); });
+    txt((p1[0]+p2[0])/2+9,(p1[1]+p2[1])/2-4,"cut "+frac(r.cutJoint),"start",true);
+    txt(p1[0]+8,y0-wpx/2-6,r.angDeg.toFixed(0)+"°","start",false,"#2E7D32");
+    var rx=p3[0]+22; dimline(rx,y0,rx,p3[1]); txt(rx+4,(y0+p3[1])/2+4,frac(r.O),"start",true,"#030D8C");
+    g.push('<line x1="'+p3[0]+'" y1="'+y0+'" x2="'+rx+'" y2="'+y0+'" stroke="#0F1A22" stroke-width="0.7" stroke-dasharray="3 3"/>');
+    g.push('<line x1="'+p3[0]+'" y1="'+p3[1]+'" x2="'+rx+'" y2="'+p3[1]+'" stroke="#0F1A22" stroke-width="0.7" stroke-dasharray="3 3"/>');
+    txt(x0, Math.max(p3[1],y0)+wpx/2+16, "Ø "+frac(r.D)+" · ell CL "+frac(r.ellCL)+" · arc "+frac(r.arcMain),"start");
+    svgEl.setAttribute("viewBox","0 44 "+(rx+56)+" "+(Math.max(p3[1],y0)+70-44));
+    svgEl.innerHTML=g.join("");
+  }
+
   // placeholder shown before the numbers are in — the fitting with its dimension names
   function offPlaceholder(svgEl){
     var f = off.fit, g = [];
@@ -1511,7 +1574,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
       dim(28,y0,28,y1); txt(22,(y0+y1)/2+4,"OFFSET","end",false,"#030D8C");
       txt(95,y0-w/2-8,"DUCT WIDTH","middle");
       dim(150,y1+38,250,y1+38); txt(200,y1+52,"LENGTH","middle");
-    } else if(f==="single"){
+    } else if(f==="single" || f==="rninety"){
       var sy=158;
       duct("M40,"+sy+"L188,"+sy+"L338,74", w);
       dim(360,sy,360,74); txt(366,(sy+74)/2+4,"OFFSET","start",false,"#030D8C");
@@ -1562,6 +1625,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
 
     if(r.owl){ owlDraw(r, 0, $("svg")); return; }
     if(r.rtap){ rtapDraw(r, $("svg")); return; }
+    if(r.rninety){ rninetyDraw(r, $("svg")); return; }
 
     var th = r.th, O = r.O;
     if(off.fit === "wye" || off.fit === "single"){
@@ -1660,14 +1724,14 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
   }
   function syncFit(){
     var f = off.fit;
-    $("oDiaBox").hidden  = !(f === "twoR" || f === "wye" || f === "single" || f === "rtap");
+    $("oDiaBox").hidden  = !(f === "twoR" || f === "wye" || f === "single" || f === "rtap" || f === "rninety");
     $("oDUnit").textContent = (f === "wye" || f === "rtap") ? "in round main" : "in round";
     $("oRectBox").hidden = !(f === "twoS" || f === "twoSm" || f === "owl");
     $("wyeBox").hidden   = !(f === "wye" || f === "rtap");
     $("fitLenRow").hidden = f !== "wye";
     $("ellPanel").hidden = f === "owl";
     $("throatLbl").textContent = (f === "twoSm") ? "Throat length" : "Throat radius";
-    var noRoll = (f === "twoS" || f === "twoSm" || f === "owl" || f === "rtap");
+    var noRoll = (f === "twoS" || f === "twoSm" || f === "owl" || f === "rtap" || f === "rninety");
     $("segRoll").hidden  = noRoll;
     if(noRoll) off.roll = "flat";
     $("flatBox").hidden  = f === "owl" || off.roll !== "flat";
